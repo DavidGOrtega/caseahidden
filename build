@@ -15,7 +15,7 @@ git config --global user.email "g.ortega.david@gmail.com"
 git config --global user.password "2MagicDav1d"
 git add --all
 git commit -m "bumping"
-git push --set-upstream https://github.com/DavidGOrtega/caseahidden.git master
+git push #--set-upstream https://github.com/DavidGOrtega/caseahidden.git master
 
 echo "Let us pretend that this is building something ... and takes 20 seconds"
 
