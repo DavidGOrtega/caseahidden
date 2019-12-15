@@ -1,40 +1,13 @@
 #!/bin/bash
 
-history
+dvc repro ${DVC_FILE}
 
-# shows env variables. GoCD has two types of env vars plain and encripted
-printenv
-
-# echo bumping >> README.md
-
-echo "setting git profile"
-git config --list
-
-FILE=ff.dvc
-if [ ! -f $FILE ]; then
-    echo "Let us pretend that this is building something ... and takes 5 seconds"
-
-    count=0
-    while [ "$count" -lt 5 ]; do
-        count=$((count + 1))
-
-        color_code=$((31 + (count % 7)))
-        printf "\e[01;${color_code}mBuilding [$count of 5]\e[00m\n"
-
-        sleep 1
-    done
-    
-    touch $FILE
-else
-    echo "this is going good"
-fi
-
+git config --global user.email "${GITHUB_EMAIL}"
 if ! git diff-index --quiet HEAD --; then
-    # git init
-    # git config --global user.name "DavidGOrtega"
-    git config --global user.email "g.ortega.david@gmail.com"
-    # git config --global user.password "2MagicDav1d"
-    git add --all
-    git commit -m "bumping"
-    git push #--set-upstream https://github.com/DavidGOrtega/caseahidden.git master
+    echo "dvc updated the repo, pushing into ${GO_MATERIAL_BRANCH_MASTER}"
+    # git add --all
+    # git commit -m "dvc repro"
+    # git push
+
+    ls 
 fi

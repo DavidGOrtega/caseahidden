@@ -1,0 +1,8 @@
+cmd: python preprocess.py
+outs:
+- path: preprocess.json
+  metric: true
+  cache: false
+  persist: false
+deps:
+- path: preprocess.py
