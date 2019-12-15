@@ -1,5 +1,7 @@
 #!/bin/bash
 
+history
+
 # shows env variables. GoCD has two types of env vars plain and encripted
 printenv
 
