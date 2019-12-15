@@ -8,7 +8,7 @@ printenv
 echo bumping >> README.md
 git add --all
 git commit -m "bumping"
-git push
+# git push
 
 echo "Let us pretend that this is building something ... and takes 20 seconds"
 
