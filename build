@@ -1,5 +1,6 @@
 #!/bin/bash
 
+dvc pull
 dvc repro ${DVC_FILE}
 
 git config --global user.email "${GITHUB_EMAIL}"
