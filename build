@@ -19,12 +19,14 @@ if [ ! -f $FILE ]; then
         count=$((count + 1))
 
         color_code=$((31 + (count % 7)))
-        printf "\e[01;${color_code}mBuilding [$count of 20]\e[00m\n"
+        printf "\e[01;${color_code}mBuilding [$count of 5]\e[00m\n"
 
         sleep 1
     done
     
     touch $FILE
+else
+    echo "this is going good"
 fi
 
 if ! git diff-index --quiet HEAD --; then
