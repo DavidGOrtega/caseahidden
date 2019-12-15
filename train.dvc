@@ -1,6 +1,6 @@
 cmd: python train.py
 outs:
-- path: metrics/train.json
+- path: train.json
   metric: true
   cache: false
   persist: false
