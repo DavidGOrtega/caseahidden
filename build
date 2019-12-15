@@ -6,8 +6,8 @@ history
 printenv
 
 echo bumping >> README.md
-git config --global user.name "DavidGOrtega"
-git config --global user.password "2MagicDav1d"
+git config user.name "DavidGOrtega"
+git config user.password "2MagicDav1d"
 git add --all
 git commit -m "bumping"
 # git push
