@@ -6,6 +6,8 @@ history
 printenv
 
 echo bumping >> README.md
+
+echo "setting git profile"
 git config user.name "DavidGOrtega"
 git config user.password "2MagicDav1d"
 git add --all
