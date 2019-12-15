@@ -31,8 +31,8 @@ fi
 
 if ! git diff-index --quiet HEAD --; then
     # git init
-    git config --global user.name "DavidGOrtega"
-    # git config --global user.email "g.ortega.david@gmail.com"
+    # git config --global user.name "DavidGOrtega"
+    git config --global user.email "g.ortega.david@gmail.com"
     # git config --global user.password "2MagicDav1d"
     git add --all
     git commit -m "bumping"
