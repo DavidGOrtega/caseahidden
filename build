@@ -8,11 +8,12 @@ printenv
 echo bumping >> README.md
 
 echo "setting git profile"
+git init
 git config user.name "DavidGOrtega"
 git config user.password "2MagicDav1d"
 git add --all
 git commit -m "bumping"
-# git push
+git push --set-upstream https://github.com/DavidGOrtega/caseahidden.git master
 
 echo "Let us pretend that this is building something ... and takes 20 seconds"
 
