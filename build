@@ -5,9 +5,7 @@ dvc repro ${DVC_FILE}
 git config --global user.email "${GITHUB_EMAIL}"
 if ! git diff-index --quiet HEAD --; then
     echo "dvc updated the repo, pushing into ${GO_MATERIAL_BRANCH_MASTER}"
-    # git add --all
-    # git commit -m "dvc repro"
-    # git push
-
-    ls 
+    git add --all
+    git commit -m "dvc repro"
+    git push
 fi
