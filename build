@@ -8,6 +8,7 @@ printenv
 echo bumping >> README.md
 
 echo "setting git profile"
+git config user.name
 # git init
 git config --global user.name "DavidGOrtega"
 git config --global user.password "2MagicDav1d"
