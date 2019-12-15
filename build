@@ -5,7 +5,7 @@ history
 # shows env variables. GoCD has two types of env vars plain and encripted
 printenv
 
-echo bumping >> README.md
+# echo bumping >> README.md
 
 echo "setting git profile"
 git config --list
