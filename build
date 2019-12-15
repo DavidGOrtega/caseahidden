@@ -11,9 +11,10 @@ echo "setting git profile"
 git config --list
 
 FILE=ff.dvc
-if !test -f "$FILE"; then
+if [ ! -f $FILE ]; then
     touch $FILE
 fi
+
 # git init
 # git config --global user.name "DavidGOrtega"
 # git config --global user.email "g.ortega.david@gmail.com"
