@@ -12,6 +12,6 @@ jobs:
         env:
           dvc_file: train.dvc
           GITHUB_EMAIL: g.ortega.david@gmail.com
-      -uses: ad-m/github-push-action@master
+      - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
