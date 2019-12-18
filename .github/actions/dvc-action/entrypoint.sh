@@ -16,6 +16,7 @@ fi
 echo Pulling from dvc repo...
 dvc pull
 
+dvc_file = ${dvc_file:-Dvcfile}
 echo Runnig dvc repro ${dvc_file}
 dvc repro ${dvc_file}
 
@@ -27,7 +28,9 @@ if ! git diff-index --quiet HEAD --; then
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
     git commit -m "dvc repro" -a
-    #git push
+
+    remote_repo="https://${GITHUB_ACTOR}:${github_token}@github.com/$GITHUB_REPOSITORY.git"
+    git push "${remote_repo}" HEAD:${INPUT_BRANCH:-master}
 fi
 
 echo "done!"
