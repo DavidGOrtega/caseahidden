@@ -17,9 +17,10 @@ fi
     echo Pulling from dvc repo... && \
     dvc pull && \
     echo Runnig dvc repro ${dvc_file} && \
-    dvc repro ${dvc_file} && \
+    # dvc repro ${dvc_file} && \
     echo Pushing to dvc repo && \
     #dvc push && \
+    touch shouldnot.txt && \
     echo "done!"
 
 } || { # catch
