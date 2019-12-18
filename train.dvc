@@ -1,11 +1,11 @@
-cmd: python train.py
+cmd: df -h
 outs:
 - path: train.json
   metric: true
   cache: false
   persist: false
-  md5: 80e6265e6a174bd2b7a7f2ee23a0da61
+  md5: a4a027f4e4098b72d5b10fbb98e967eb
 deps:
 - path: train.py
   md5: 798dbad15b3a85660abd7fee418c862e
-md5: 8748fc93842fc2dfa1f770e39666f456
+md5: e6076f3ba5c67aa3d024ccb8cee37cb9
