@@ -20,14 +20,13 @@ echo Runnig dvc repro ${dvc_file}
 dvc repro ${dvc_file}
 
 echo Pushing to dvc repo
-# dvc push
+#dvc push
 
-git config --global user.email "${GITHUB_EMAIL}"
 if ! git diff-index --quiet HEAD --; then
     echo "Pushing"
     git add --all
     git commit -m "dvc repro"
-    git push origin HEAD:master
+    #git push
 fi
 
 echo "done!"
