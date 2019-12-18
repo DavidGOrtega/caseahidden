@@ -13,18 +13,20 @@ if ! [[ "$filter_count" -eq 0 ]]; then
   exit 0 # exit 78
 fi
 
-{ # try
-    echo Pulling from dvc repo... && \
-    dvc pull && \
-    echo Runnig dvc repro ${dvc_file} && \
-    # dvc repro ${dvc_file} && \
-    echo Pushing to dvc repo && \
-    #dvc push && \
-    touch shouldnot && \
-    echo "done!"
+echo Pulling from dvc repo...
+dvc pull
 
-} || { # catch
-    git reset && \
-    exit 1
-}
+echo Runnig dvc repro ${dvc_file}
+dvc repro ${dvc_file}
 
+echo Pushing to dvc repo
+dvc push
+
+if ! git diff-index --quiet HEAD --; then
+    echo "Pushing"
+    git add --all
+    git commit -m "dvc repro"
+    git push
+fi
+
+echo "done!"
