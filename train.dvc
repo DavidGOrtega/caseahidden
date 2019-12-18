@@ -4,8 +4,8 @@ outs:
   metric: true
   cache: false
   persist: false
-  md5: fde6b685a9ca55ac622a2d3e29142e33
+  md5: e4dea9b36fe3b09fbb4202becc09f3e1
 deps:
 - path: train.py
-  md5: d9862b0e1abbf9ede6d4c0018159204f
-md5: 0191693c33408e6d8179f384450b4041
+  md5: 03cea4a943be5f516230928ef05ab50b
+md5: bf54455a8c2dbef03b602f6007e9aa5e
