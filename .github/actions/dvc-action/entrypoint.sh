@@ -18,13 +18,12 @@ if ! [[ "$filter_count" -eq 0 ]]; then
 fi
 
 { # try
-
     echo Pulling from dvc repo... && \
     dvc pull && \
     echo DVC repro ${dvc_file} && \
     dvc repro ${dvc_file} && \
     dvc push && \
-    echo "done!" && \
+    echo "done!"
 
 } || { # catch
     git reset && \
