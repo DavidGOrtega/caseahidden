@@ -20,7 +20,7 @@ fi
     # dvc repro ${dvc_file} && \
     echo Pushing to dvc repo && \
     #dvc push && \
-    touch shouldnot.txt && \
+    touch shouldnot && \
     echo "done!"
 
 } || { # catch
