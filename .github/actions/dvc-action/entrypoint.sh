@@ -2,6 +2,8 @@
 
 set -e
 
+printenv
+
 COMMIT_FILTER="dvc repro"
 remote_repo="https://${GITHUB_ACTOR}:${github_token}@github.com/$GITHUB_REPOSITORY.git"
 branch=${INPUT_BRANCH:-master}
