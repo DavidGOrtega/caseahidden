@@ -12,4 +12,6 @@ jobs:
         with: 
           dcv_file: train.dvc
           artifacts_expiration: 1M
+        env:
+          DVC_FILE: train.dvc
             
