@@ -24,8 +24,9 @@ echo Pushing to dvc repo
 
 if ! git diff-index --quiet HEAD --; then
     echo "Pushing"
-    git add --all
-    git commit -m "dvc repro"
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"
+    git commit -m "dvc repro" -a
     #git push
 fi
 
