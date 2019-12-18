@@ -24,14 +24,9 @@ dvc pull
 echo DVC repro ${dvc_file}
 dvc repro ${dvc_file}
 
-git config --global user.email "${GITHUB_EMAIL}"
-if ! git diff-index --quiet HEAD --; then
-    echo dvc updated the repo, pushing...
+git add --all
+git commit -m "dvc repro $COMMIT_FILTER"
 
-    git add --all
-    git commit -m "dvc repro $COMMIT_FILTER"
-    git push
-    dvc push
+dvc push
 
-    echo "done!"
-fi
+echo "done!"
