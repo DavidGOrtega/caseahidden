@@ -9,6 +9,8 @@ remote_repo="https://${GITHUB_ACTOR}:${github_token}@github.com/$GITHUB_REPOSITO
 branch=$(git rev-parse --abbrev-ref HEAD)
 dvc_file=${dvc_file:-Dvcfile}
 
+echo branch: ${branch}
+
 # Skip if commit filter
 readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
 readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
