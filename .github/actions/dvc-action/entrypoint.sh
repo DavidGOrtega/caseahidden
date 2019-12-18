@@ -6,7 +6,7 @@ printenv
 
 COMMIT_FILTER="dvc repro"
 remote_repo="https://${GITHUB_ACTOR}:${github_token}@github.com/$GITHUB_REPOSITORY.git"
-branch=${INPUT_BRANCH:-master}
+branch=$(git rev-parse --abbrev-ref HEAD)
 dvc_file=${dvc_file:-Dvcfile}
 
 # Skip if commit filter
