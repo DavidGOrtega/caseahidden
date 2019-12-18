@@ -16,8 +16,9 @@ fi
 { # try
     echo Pulling from dvc repo... && \
     dvc pull && \
-    echo DVC repro ${dvc_file} && \
+    echo Runnig dvc repro ${dvc_file} && \
     dvc repro ${dvc_file} && \
+    echo Pushing to dvc repo && \
     #dvc push && \
     echo "done!"
 
