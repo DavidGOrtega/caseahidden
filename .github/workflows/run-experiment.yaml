@@ -11,4 +11,5 @@ jobs:
         env:
           dvc_file: train.dvc
           artifacts_expiration: 1M
+          GITHUB_EMAIL: g.ortega.david@gmail.com
             

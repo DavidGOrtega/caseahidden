@@ -24,6 +24,7 @@ dvc pull
 echo DVC repro ${dvc_file}
 dvc repro ${dvc_file}
 
+git config --global user.email "${GITHUB_EMAIL}"
 if ! git diff-index --quiet HEAD --; then
     echo dvc updated the repo, pushing...
 
