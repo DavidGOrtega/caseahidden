@@ -25,6 +25,7 @@ echo DVC repro ${dvc_file}
 dvc repro ${dvc_file}
 dvc push
 echo "done!"
+exit 0
 
 # git config --global user.email "${GITHUB_EMAIL}"
 # if ! git diff-index --quiet HEAD --; then
