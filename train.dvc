@@ -1,4 +1,4 @@
-cmd: df -h
+cmd: python train.py
 outs:
 - path: train.json
   metric: true
