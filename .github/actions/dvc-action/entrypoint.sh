@@ -3,7 +3,7 @@
 set -e
 
 ## SKIP IF COMMIT FILTER
-COMMIT_FILTER="[skip ci]"
+COMMIT_FILTER="dvc repro"
 
 # Check skip ci
 readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
@@ -14,7 +14,7 @@ echo "Number of occurences of '$COMMIT_FILTER' in '$last_commit_log': $filter_co
 
 if ! [[ "$filter_count" -eq 0 ]]; then
   echo "Last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
-  #exit 78
+  exit 78
 fi
 
 ## SKIP IF COMMIT FILTER ENDS
@@ -23,6 +23,8 @@ echo Pulling from dvc repo...
 dvc pull
 echo DVC repro ${dvc_file}
 dvc repro ${dvc_file}
+dvc push
+echo "done!"
 
 # git config --global user.email "${GITHUB_EMAIL}"
 # if ! git diff-index --quiet HEAD --; then
