@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+printenv
+
 echo Pulling from dvc repo...
 dvc pull
 echo DVC repro ${DVC_FILE}
