@@ -14,7 +14,7 @@ echo "Number of occurences of '$COMMIT_FILTER' in '$last_commit_log': $filter_co
 
 if ! [[ "$filter_count" -eq 0 ]]; then
   echo "Last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
-  exit 78
+  #exit 78
 fi
 
 ## SKIP IF COMMIT FILTER ENDS
