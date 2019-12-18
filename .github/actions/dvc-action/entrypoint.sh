@@ -23,7 +23,7 @@ echo Pulling from dvc repo...
 dvc pull
 echo DVC repro ${dvc_file}
 dvc repro ${dvc_file}
-dvc push
+#dvc push
 echo "done!"
 exit 0
 
