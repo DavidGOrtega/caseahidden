@@ -27,7 +27,7 @@ fi
     echo "done!" && \
 
 } || { # catch
-    git reset
+    git reset && \
     exit 1
 }
 
