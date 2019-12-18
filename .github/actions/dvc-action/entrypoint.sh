@@ -22,6 +22,7 @@ dvc repro ${dvc_file}
 echo Pushing to dvc repo
 # dvc push
 
+git config --global user.email "${GITHUB_EMAIL}"
 if ! git diff-index --quiet HEAD --; then
     echo "Pushing"
     git add --all

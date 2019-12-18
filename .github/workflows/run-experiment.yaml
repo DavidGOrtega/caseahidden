@@ -11,3 +11,4 @@ jobs:
       - uses: ./.github/actions/dvc-action
         env:
           dvc_file: train.dvc
+          GITHUB_EMAIL: g.ortega.david@gmail.com
