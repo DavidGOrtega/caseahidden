@@ -27,7 +27,7 @@ if ! git diff-index --quiet HEAD --; then
     echo "Pushing"
     git add --all
     git commit -m "dvc repro"
-    git push
+    git push origin HEAD:master
 fi
 
 echo "done!"
