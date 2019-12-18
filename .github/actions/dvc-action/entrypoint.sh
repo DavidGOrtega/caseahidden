@@ -5,8 +5,8 @@ printenv
 
 echo Pulling from dvc repo...
 dvc pull
-echo DVC repro ${DVC_FILE}
-dvc repro ${DVC_FILE}
+echo DVC repro ${dvc_file}
+dvc repro ${dvc_file}
 
 # if ! git diff-index --quiet HEAD --; then
 #     echo dvc updated the repo, pushing...
