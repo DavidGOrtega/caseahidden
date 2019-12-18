@@ -14,7 +14,7 @@ echo "Number of occurences of '$COMMIT_FILTER' in '$last_commit_log': $filter_co
 
 if ! [[ "$filter_count" -eq 0 ]]; then
   echo "Last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
-  exit 78
+  exit 0 # exit 78
 fi
 
 ## SKIP IF COMMIT FILTER ENDS
@@ -23,18 +23,6 @@ echo Pulling from dvc repo...
 dvc pull
 echo DVC repro ${dvc_file}
 dvc repro ${dvc_file}
-#dvc push
+dvc push
 echo "done!"
 exit 0
-
-# git config --global user.email "${GITHUB_EMAIL}"
-# if ! git diff-index --quiet HEAD --; then
-#     echo dvc updated the repo, pushing...
-
-#     git add --all
-#     git commit -m "dvc repro $COMMIT_FILTER"
-#     git push
-#     dvc push
-
-#     echo "done!"
-# fi
