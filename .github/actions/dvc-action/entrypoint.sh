@@ -28,6 +28,6 @@ fi
 
 } || { # catch
     git reset
-    exit 0
+    exit 1
 }
 
