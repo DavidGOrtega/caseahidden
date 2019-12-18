@@ -9,7 +9,7 @@ jobs:
     steps:
       # - uses: actions/checkout@v1
       - uses: ./.github/actions/dvc-action
-          with: 
-            dcv_file: train.dvc
-            artifacts_expiration: 1M
+        with: 
+          dcv_file: train.dvc
+          artifacts_expiration: 1M
             
