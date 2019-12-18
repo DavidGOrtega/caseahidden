@@ -17,12 +17,17 @@ if ! [[ "$filter_count" -eq 0 ]]; then
   exit 0 # exit 78
 fi
 
-## SKIP IF COMMIT FILTER ENDS
+{ # try
 
-echo Pulling from dvc repo...
-dvc pull
-echo DVC repro ${dvc_file}
-dvc repro ${dvc_file}
-dvc push
-echo "done!"
-exit 0
+    echo Pulling from dvc repo... && \
+    dvc pull && \
+    echo DVC repro ${dvc_file} && \
+    dvc repro ${dvc_file} && \
+    dvc push && \
+    echo "done!" && \
+
+} || { # catch
+    git reset
+    exit 0
+}
+
