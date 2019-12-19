@@ -31,7 +31,7 @@ if ! git diff-index --quiet HEAD --; then
     # git commit -m "${COMMIT_FILTER}" -a
     # git push "${remote_repo}" HEAD:${branch}
 
-    git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+    git remote add github "https://$GITHUB_ACTOR:$github_token@github.com/$GITHUB_REPOSITORY.git"
     git pull github ${GITHUB_REF} --ff-only
     git commit -m "${COMMIT_FILTER}" -a
     git push github HEAD:${GITHUB_REF}
