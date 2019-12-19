@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-printenv
+# printenv
 
 COMMIT_FILTER="dvc repro"
 # Skip if commit filter
@@ -33,4 +33,3 @@ if ! git diff-index --quiet HEAD --; then
         dvc push
     fi
 fi
-

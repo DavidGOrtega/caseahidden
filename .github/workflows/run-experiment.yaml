@@ -10,5 +10,4 @@ jobs:
       - uses: ./.github/actions/dvc-action
         env:
           dvc_file: train.dvc
-          dvc_push: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
