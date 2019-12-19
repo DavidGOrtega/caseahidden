@@ -5,8 +5,8 @@ set -e
 
 COMMIT_FILTER="dvc repro"
 # Skip if commit filter
-echo "Check skip"
 last_commit_log=$(git log -1 --pretty=format:"%s")
+echo "Check skip last commit $last_commit_log"
 filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
 if ! [[ "$filter_count" -eq 0 ]]; then
   echo "Last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", skipping"
