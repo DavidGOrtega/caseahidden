@@ -3,11 +3,12 @@ name: Run experiment
 on: push
 
 jobs:
-  run:
+  default:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ./.github/actions/dvc-action
+
+      - uses: docker://davidgortega/dvc-action:latest
         env:
           dvc_file: train.dvc
           dvc_push: false

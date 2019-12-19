@@ -6,10 +6,8 @@ set -e
 COMMIT_FILTER="dvc repro"
 # Skip if commit filter
 readonly local last_commit_log=$(git log -1)
-readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
-echo "Check skip last commit $last_commit_log"
 if ! [[ "$filter_count" -eq 0 ]]; then
-  echo "Last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", skipping"
+  echo "Skip found, ci skipped"
   exit 0 # exit 78 # 78 is neutral github code 
 fi
 
