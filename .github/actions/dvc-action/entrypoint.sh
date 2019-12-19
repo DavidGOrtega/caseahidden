@@ -4,7 +4,7 @@ set -e
 # printenv
 
 COMMIT_FILTER="dvc repro"
-Skip if commit filter
+# Skip if commit filter
 readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
 readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
 if ! [[ "$filter_count" -eq 0 ]]; then
