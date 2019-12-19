@@ -5,7 +5,7 @@ set -e
 
 COMMIT_FILTER="dvc repro"
 # Skip if commit filter
-readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
+readonly local last_commit_log=$(git log -1)
 readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
 echo "Check skip last commit $last_commit_log"
 if ! [[ "$filter_count" -eq 0 ]]; then
@@ -25,7 +25,7 @@ if ! git diff-index --quiet HEAD --; then
     
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
-    git commit -m "${COMMIT_FILTER}" -a
+    git commit -m "${COMMIT_FILTER}; Leave me to ci skip!" -a
     git remote add github "https://$GITHUB_ACTOR:$github_token@github.com/$GITHUB_REPOSITORY.git"
     git push github HEAD:${GITHUB_REF}
 
