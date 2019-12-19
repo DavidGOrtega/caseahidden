@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-# printenv
+printenv
 
 COMMIT_FILTER="dvc repro"
 # Skip if commit filter
