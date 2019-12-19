@@ -31,9 +31,11 @@ if ! git diff-index --quiet HEAD --; then
     # git commit -m "${COMMIT_FILTER}" -a
     # git push "${remote_repo}" HEAD:${branch}
 
-    git remote add github "https://$GITHUB_ACTOR:$github_token@github.com/$GITHUB_REPOSITORY.git"
-    git pull github ${GITHUB_REF} --ff-only
+    
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"
     git commit -m "${COMMIT_FILTER}" -a
+    git remote add github "https://$GITHUB_ACTOR:$github_token@github.com/$GITHUB_REPOSITORY.git"
     git push github HEAD:${GITHUB_REF}
 
     echo Pushing to dvc repo
