@@ -13,4 +13,4 @@ jobs:
           dvc_file: train.dvc
           dvc_push: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+          #GITHUB_CONTEXT: ${{ toJson(github) }}
