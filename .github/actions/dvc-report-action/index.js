@@ -1,6 +1,14 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+
+function sleep(ms){
+  return new Promise(resolve=>{
+      setTimeout(resolve,ms)
+  })
+}
+
+
 async function checks() {
   try {
     const myToken = core.getInput('github_token');
@@ -37,24 +45,28 @@ async function checks() {
     });
 
     console.log(repo_checks.data);
-
-    /* octokit.checks.update({
-      check_run_id: ,
-      owner: 'DavidGOrtega',
-      repo: 'caseahidden',
-      head_sha: github.context.sha,
-  
-      started_at: new Date(),
-      completed_at: new Date(),
-      conclusion: 'success',
-  
-      name: 'DVC test',
-      status: 'completed',
-      output: {
-        title: 'Checksum test',
-        summary: 'skjdsjdskdskdjs',
-      }
-    }) */
+    sleep(20);
+    for (idx in repo_checks) {
+      const check = repo_checks[idx];
+      if (check.name === 'run')
+          octokit.checks.update({
+            check_run_id: check.id,
+            owner: 'DavidGOrtega',
+            repo: 'caseahidden',
+            head_sha: github.context.sha,
+        
+            started_at: new Date(),
+            completed_at: new Date(),
+            conclusion: 'success',
+        
+            name: 'dvc report',
+            status: 'completed',
+            output: {
+              title: 'hijacked!',
+              summary: 'this check is hijacked!',
+            }
+          }) 
+     }
   
   } catch (error) {
     core.setFailed(error.message);

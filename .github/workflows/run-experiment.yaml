@@ -6,7 +6,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: 'dvc pipline'
+        uses: actions/checkout@v1
 
       # - uses: ./.github/actions/dvc-action
       #   env:
@@ -15,6 +16,7 @@ jobs:
       #     dvc_endpoint: "https://c7ca2215.ngrok.io/api/data"
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: ./.github/actions/dvc-report-action
+      - name: 'dvc report'
+        uses: ./.github/actions/dvc-report-action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
