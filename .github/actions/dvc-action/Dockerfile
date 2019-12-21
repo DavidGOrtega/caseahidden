@@ -1,14 +1,14 @@
 FROM ubuntu:18.04
 
-# RUN apt-get update
-# RUN apt-get install -y \
-#     curl \
-#     wget \
-#     apt-transport-https \
-#     ca-certificates \
-#     software-properties-common \
-#     git \
-#     python
+RUN apt-get update
+RUN apt-get install -y \
+    curl \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common
+    # wget \
+    # git \
+    # python
 
 # RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list
 # RUN apt update
