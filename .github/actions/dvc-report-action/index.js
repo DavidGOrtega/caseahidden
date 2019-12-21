@@ -44,11 +44,11 @@ async function checks() {
       ref: head_sha,
     });
 
-    console.log(repo_checks.data);
+    console.log(repo_checks.data.check_runs);
     await sleep(20);
-    for (idx in repo_checks.data) {
+    for (idx in repo_checks.data.check_runs) {
       console.log(idx);
-      const check = repo_checks.data[idx];
+      const check = repo_checks.data.check_runs[idx];
       if (check.name === 'run') {
         console.log('HEHRHEHRHEHEHRHEH');
 
