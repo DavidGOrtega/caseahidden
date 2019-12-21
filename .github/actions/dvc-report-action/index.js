@@ -14,13 +14,32 @@ try {
     completed_at: new Date(),
     conclusion: 'success',
 
-    name: 'run',
+    name: 'DVC test',
     status: 'completed',
     output: {
       title: 'Checksum test',
       summary: 'skjdsjdskdskdjs',
     }
   })
+
+  console.log(github);
+  /* octokit.checks.update({
+    check_run_id: ,
+    owner: 'DavidGOrtega',
+    repo: 'caseahidden',
+    head_sha: github.context.sha,
+
+    started_at: new Date(),
+    completed_at: new Date(),
+    conclusion: 'success',
+
+    name: 'DVC test',
+    status: 'completed',
+    output: {
+      title: 'Checksum test',
+      summary: 'skjdsjdskdskdjs',
+    }
+  }) */
 
 } catch (error) {
   core.setFailed(error.message);
