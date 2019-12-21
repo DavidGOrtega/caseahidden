@@ -33,7 +33,7 @@ async function checks() {
     const repo_checks = await octokit.checks.listForRef({
       owner,
       repo,
-      head_sha,
+      ref: head_sha,
     });
 
     console.log(repo_checks);
