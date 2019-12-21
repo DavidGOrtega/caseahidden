@@ -17,4 +17,4 @@ jobs:
 
       - uses: ./.github/actions/dvc-report-action
         with:
-          who-to-greet: 'Mona the Octocat'
+          who-to-greet: ${{ secrets.GITHUB_TOKEN }}

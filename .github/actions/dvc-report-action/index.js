@@ -14,8 +14,10 @@ try {
   console.log(`The event payload: ${payload}`);
 
   console.log(github);
-  
-  github.checks.create({
+  const myToken = core.getInput('who-to-greet');
+
+  const octokit = new github.GitHub(myToken);
+  octokit.checks.create({
     owner: 'DavidGOrtega',
     repo:'caseahidden',
     head_sha: github.context.sha,
