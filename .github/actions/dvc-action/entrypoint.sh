@@ -37,8 +37,8 @@ printenv
 
 branch=$(echo ${GITHUB_REF#refs/heads/})
 conclusion="success"
-hash=$(echo git rev-parse HEAD)
-hash2=$(echo git rev-parse HEAD~1)
+hash=$(git rev-parse HEAD)
+hash2=$(git rev-parse HEAD~1)
 data="[$hash,$hash2]"
 
 echo $data
