@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-  const myToken = core.getInput('who-to-greet');
+  const myToken = core.getInput('github_token');
 
   const octokit = new github.GitHub(myToken);
   octokit.checks.create({
@@ -23,6 +23,8 @@ try {
   })
 
   console.log(github);
+  console.log(github.context);
+  console.log(github.context.payload);
   /* octokit.checks.update({
     check_run_id: ,
     owner: 'DavidGOrtega',
