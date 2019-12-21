@@ -36,7 +36,7 @@ async function checks() {
       ref: head_sha,
     });
 
-    console.log(repo_checks);
+    console.log(repo_checks.data);
 
     /* octokit.checks.update({
       check_run_id: ,
