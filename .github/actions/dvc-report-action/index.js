@@ -14,7 +14,7 @@ try {
   console.log(`The event payload: ${payload}`);
 
   const { head_branch, head_sha } = context.payload.check_suite
-  context.github.checks.create(context.repo({
+  github.context.checks.create(context.repo({
     head_branch,
     head_sha,
     started_at: new Date(),
