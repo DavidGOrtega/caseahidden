@@ -13,11 +13,13 @@ try {
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
 
-  console.log(github.context);
+  console.log(github);
   
-  github.checks.create(github.context.repo({
-    head_branch: 'master',
+  github.checks.create({
+    owner: 'DavidGOrtega',
+    repo:'caseahidden',
     head_sha: github.context.sha,
+
     started_at: new Date(),
     completed_at: new Date(),
     conclusion,
@@ -28,7 +30,7 @@ try {
       title: 'Checksum test',
       summary: 'skjdsjdskdskdjs',
     }
-  }))
+  })
 
 } catch (error) {
   core.setFailed(error.message);
