@@ -37,7 +37,7 @@ printenv
 
 branch=$(echo ${GITHUB_REF#refs/heads/})
 conclusion="success"
-data="1234 vs 2345"
+data="1234 vs 2343"
 payload='{"repo":"'$GITHUB_REPOSITORY'", "head_branch":"'$branch'", "head_sha":"'$GITHUB_SHA'", "conclusion":"'$conclusion'", "data":"'$data'"}'
 
 echo $payload
