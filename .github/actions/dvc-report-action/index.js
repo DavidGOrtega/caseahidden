@@ -24,7 +24,7 @@ try {
 
     started_at: new Date(),
     completed_at: new Date(),
-    conclusion,
+    conclusion: 'success',
 
     name: 'DVC test',
     status: 'completed',
