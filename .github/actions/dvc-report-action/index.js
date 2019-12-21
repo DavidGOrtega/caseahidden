@@ -13,7 +13,7 @@ try {
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
 
-  const { head_branch, head_sha } = context.payload.check_suite
+  const { head_branch, head_sha } = github.context.payload.check_suite
   github.context.checks.create(context.repo({
     head_branch,
     head_sha,
