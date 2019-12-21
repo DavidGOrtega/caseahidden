@@ -47,6 +47,7 @@ async function checks() {
     console.log(repo_checks.data);
     await sleep(20);
     for (idx in repo_checks) {
+      console.loog(idx);
       const check = repo_checks[idx];
       if (check.name === 'run') {
         console.log('HEHRHEHRHEHEHRHEH');
