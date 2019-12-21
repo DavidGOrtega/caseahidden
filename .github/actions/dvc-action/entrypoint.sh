@@ -38,6 +38,4 @@ printenv
 branch=$(echo ${GITHUB_REF#refs/heads/})
 conclusion="success"
 data="1234 vs 2345"
-curl -H "Content-Type: application/json" \
-  -d '{"repo":"'$GITHUB_REPOSITORY'", "head_branch":"'$branch'", "head_sha":"'$GITHUB_SHA'", "conclusion":"'$conclusion'", "data":"'$data'"}' \
-  -X POST $dvc_endpoint
+curl -H "Content-Type: application/json" -X POST $dvc_endpoint
