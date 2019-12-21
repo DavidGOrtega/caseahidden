@@ -14,7 +14,3 @@ jobs:
           dvc_push: false
           dvc_endpoint: "https://c7ca2215.ngrok.io/api/data"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: ./.github/actions/dvc-report-action@v1
-        with:
-          who-to-greet: 'Mona the Octocat'
