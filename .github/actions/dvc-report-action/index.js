@@ -48,24 +48,28 @@ async function checks() {
     await sleep(20);
     for (idx in repo_checks) {
       const check = repo_checks[idx];
-      if (check.name === 'run')
-          octokit.checks.update({
-            check_run_id: check.id,
-            owner: 'DavidGOrtega',
-            repo: 'caseahidden',
-            head_sha: github.context.sha,
-        
-            started_at: new Date(),
-            completed_at: new Date(),
-            conclusion: 'success',
-        
-            name: 'dvc report',
-            status: 'completed',
-            output: {
-              title: 'hijacked!',
-              summary: 'this check is hijacked!',
-            }
-          }) 
+      if (check.name === 'run') {
+        console.log('HEHRHEHRHEHEHRHEH');
+
+        octokit.checks.update({
+          check_run_id: check.id,
+          owner: 'DavidGOrtega',
+          repo: 'caseahidden',
+          head_sha: github.context.sha,
+      
+          started_at: new Date(),
+          completed_at: new Date(),
+          conclusion: 'success',
+      
+          name: 'dvc report',
+          status: 'completed',
+          output: {
+            title: 'hijacked!',
+            summary: 'this check is hijacked!',
+          }
+        }) 
+      }
+          
      }
   
   } catch (error) {
