@@ -15,7 +15,7 @@ try {
 
   console.log(github.context);
   
-  github.context.checks.create(github.context.repo({
+  github.checks.create(github.context.repo({
     head_branch: 'master',
     head_sha: github.context.sha,
     started_at: new Date(),
