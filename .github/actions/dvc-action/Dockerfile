@@ -5,9 +5,9 @@ RUN apt-get install -y \
     curl \
     apt-transport-https \
     ca-certificates \
-    software-properties-common
+    software-properties-common \
     # wget \
-    # git \
+    git
     # python
 
 # RUN wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list
