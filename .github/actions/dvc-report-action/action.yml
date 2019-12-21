@@ -1,13 +1,8 @@
 name: 'dvc report'
-description: 'Greet someone and record the time'
+description: ''
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  github_token: 
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
 runs:
   using: 'node12'
   main: 'index.js'

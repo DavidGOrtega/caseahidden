@@ -17,4 +17,4 @@ jobs:
 
       - uses: ./.github/actions/dvc-report-action
         with:
-          who-to-greet: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
