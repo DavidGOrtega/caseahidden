@@ -1,11 +1,11 @@
 name: Test dvc-report-action
 
-on: push
+on: [push, pull_request]
 
 jobs:
   run:
 
-    runs-on: ubuntu-latest
+    runs-on: david
 
     steps:
       - uses: actions/checkout@v1
@@ -29,20 +29,23 @@ jobs:
           dvc init --force
           dvc install
 
-          dvc get https://github.com/iterative/dataset-registry tutorial/ver/data.zip
-          unzip data.zip
-          rm -f data.zip
+          for i in {1..10}
+          do
+            echo "sample$i" >> ./data/sample$i
+          done
+
           dvc add data
           git add .gitignore data.dvc
           git commit -m "v1"
           git tag v1
 
-          dvc get https://github.com/iterative/dataset-registry tutorial/ver/new-labels.zip
-          unzip new-labels.zip
-          rm -f new-labels.zip
-          rm data/train/dogs/dog.211.jpg
-          rm data/train/dogs/dog.205.jpg
-          echo '#####' >> data/train/dogs/dog.239.jpg
+          for i in {10..50}
+          do
+            echo "sample$i" >> ./data/sample$i
+          done
+          rm data/sample1
+          rm data/sample2
+          echo modified >> data/sample3
           dvc commit -f -q
           git add data.dvc
           git commit -m "v2"
