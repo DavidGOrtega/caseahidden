@@ -40,7 +40,7 @@ jobs:
           dvc get https://github.com/iterative/dataset-registry tutorial/ver/new-labels.zip
           unzip new-labels.zip
           rm -f new-labels.zip
-          rm data/train/cats/cat.1000.jpg
+          rm data/train/dogs/dog.211.jpg
           dvc commit -f -q
           git add data.dvc
           git commit -m "v2"
