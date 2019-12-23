@@ -16,7 +16,6 @@ const summaryMD = async () => {
   const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
   const regex = /(\d+) files untouched, (\d+) files modified, (\d+) files added, (\d+) file deleted/g;
   const match = regex.exec(dvc_out);
-  console.log(match);
 
   const sections = [
     { lbl: 'New', total: match[3] },
@@ -26,7 +25,7 @@ const summaryMD = async () => {
 
   let summary = '';
   sections.forEach(section => {
-    summary += `\t- ${section.lbl} files:  \n\t\s ${section.total} files total`;
+    summary += `\t- ${section.lbl} files:  \n\t\s ${section.total} files total\n`;
   });
 
   return summary;
