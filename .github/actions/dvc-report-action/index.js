@@ -30,7 +30,7 @@ const summaryMD = async () => {
   sections.forEach(section => {
     summary += ` - ${section.lbl} files:  \n    - ${section.total} files total  \n`;
     
-    section.forEach(file => {
+    section.files.forEach(file => {
       summary += `    - ${file}  \n`;
     });
   });
