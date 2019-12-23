@@ -41,7 +41,7 @@ jobs:
           unzip new-labels.zip
           rm -f new-labels.zip
           rm data/train/dogs/dog.211.jpg
-          touch data/train/dogs/dog.205.jpg
+          echo '#####' >> data/train/dogs/dog.205.jpg
           dvc commit -f -q
           git add data.dvc
           git commit -m "v2"
