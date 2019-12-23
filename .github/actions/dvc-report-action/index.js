@@ -12,13 +12,10 @@ const exe = async (command) => {
 }
 
 const dvc_install = async () => {
-  exe(`
-    wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list && apt update && apt -y install dvc
-  `)
+  exe("wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list && apt update && apt -y install dvc");
 }
 
 const summaryMD = async () => {
-  await dvc_install();
   const dvc = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
 
   return `
@@ -36,6 +33,8 @@ const summaryMD = async () => {
 
 const checks = async () => {
   try {
+    await dvc_install();
+    
     const github_token = core.getInput('github_token');
     const octokit = new github.GitHub(github_token);
 
