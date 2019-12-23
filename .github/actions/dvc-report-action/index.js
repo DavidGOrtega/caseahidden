@@ -5,6 +5,7 @@ const github = require('@actions/github');
 async function checks() {
   try {
 
+    console.log(process.env);
     console.log(github.context);
     console.log(github.context.payload);
     console.log(JSON.stringify(github.context));

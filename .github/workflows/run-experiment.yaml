@@ -16,7 +16,6 @@ jobs:
           dvc_endpoint: "https://c7ca2215.ngrok.io/api/data"
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'dvc report'
-        uses: ./.github/actions/dvc-report-action
+      - uses: ./.github/actions/dvc-report-action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
