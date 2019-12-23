@@ -30,7 +30,7 @@ const summaryMD = async () => {
   });
 
   return `
-    ${dvc}
+    ${dvc_out}
 
     ${summary}
   `;
