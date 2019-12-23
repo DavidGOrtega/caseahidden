@@ -29,11 +29,7 @@ const summaryMD = async () => {
     summary += `  - ${section.lbl} files:\n\s ${section.total} files total`;
   });
 
-  return `
-    ${dvc_out}
-
-    ${summary}
-  `;
+  return summary;
 }
 
 const checks = async () => {
