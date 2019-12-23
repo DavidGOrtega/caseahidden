@@ -24,7 +24,7 @@ const summaryMD = async () => {
     { lbl: 'Deleted', total: match[4] },
   ];
 
-  const summary = '';
+  let summary = '';
   sections.forEach(section => {
     summary += `  - ${section.lbl} files:\n\s ${section.total} files total`;
   });
