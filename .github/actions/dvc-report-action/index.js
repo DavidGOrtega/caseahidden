@@ -6,7 +6,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
-  if (stderr) throw new Error(stderr);
+  //if (stderr) throw new Error(stderr);
 
   return stdout;
 }
