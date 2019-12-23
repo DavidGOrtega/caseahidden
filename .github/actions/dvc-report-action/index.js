@@ -12,7 +12,7 @@ const exe = async (command) => {
 }
 
 const dvc_install = async () => {
-  exe("sudo pip install dvc[all]");
+  exe("yes | pip install dvc[all]");
 }
 
 const summaryMD = async () => {
