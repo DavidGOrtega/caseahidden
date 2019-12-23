@@ -35,8 +35,8 @@ const summaryMD = async () => {
     });
   });
 
-  const git_out = await exe('git diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
-  console.log('git_diff');
+  const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+  console.log('git diff');
   console.log(git_out);
 
 
