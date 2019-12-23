@@ -46,10 +46,8 @@ const summaryMD = async () => {
   return summary;
 }
 
-const checks = async () => {
+const check_dvc_report = async () => {
   try {
-    await exe('ls -R data | wc -l');
-
     const github_token = core.getInput('github_token');
     const octokit = new github.GitHub(github_token);
 
@@ -95,4 +93,4 @@ const checks = async () => {
   }
 }
 
-checks();
+check_dvc_report();

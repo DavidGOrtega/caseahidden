@@ -29,6 +29,7 @@ jobs:
           dvc init --force
           dvc install
 
+          mkdir data
           for i in {1..10}
           do
             echo "sample$i" >> ./data/sample$i
@@ -39,7 +40,7 @@ jobs:
           git commit -m "v1"
           git tag v1
 
-          
+
           for i in {10..20}
           do
             echo "sample$i" >> ./data/sample$i
