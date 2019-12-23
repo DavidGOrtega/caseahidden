@@ -19,9 +19,9 @@ const summaryMD = async () => {
   const match = regex.exec(dvc_out);
 
   const sections = [
-    { lbl: 'New', total: match[3] },
-    { lbl: 'Modified', total: match[2] },
-    { lbl: 'Deleted', total: match[4] },
+    { lbl: 'New', total: match[3], files: ['dummy.png', 'dummy.png', 'dummy.png'] },
+    { lbl: 'Modified', total: match[2], files: ['dummy.png']},
+    { lbl: 'Deleted', total: match[4], files: ['dummy.png'] },
   ];
 
   let summary = '';
