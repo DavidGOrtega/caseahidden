@@ -4,13 +4,17 @@ const github = require('@actions/github');
 
 async function checks() {
   try {
-    const myToken = core.getInput('github_token');
-  
-    const octokit = new github.GitHub(myToken);
+
+    console.log(github.context);
+    console.log(github.context.payload);
+    console.log(JSON.stringify(github.context));
+
     const owner = 'DavidGOrtega';
     const repo = 'caseahidden';
     const head_sha = github.context.sha;
+    const myToken = core.getInput('github_token');
 
+    const octokit = new github.GitHub(myToken);
     await octokit.checks.create({
       owner,
       repo,
