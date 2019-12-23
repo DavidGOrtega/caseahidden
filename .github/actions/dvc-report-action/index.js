@@ -71,7 +71,7 @@ const check_dvc_data_report = async () => {
   await octokit.checks.create({
     owner,
     repo,
-    GITHUB_SHA,
+    head_sha: GITHUB_SHA,
 
     started_at,
     name,
@@ -101,7 +101,7 @@ const run_action = async () => {
 
     await check_dvc_data_report();
 
-    const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
+    /* const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
     if (!dvc_repro_skip && dvc_repro_file_exists) {
 
       console.log(`echo Running dvc repro ${dvc_repro_file}`);
@@ -131,7 +131,7 @@ const run_action = async () => {
         console.log(`DVC repro file ${dvc_repro_file} not found`);
       }
 
-    }
+    } */
   
   } catch (error) {
     core.setFailed(error.message);
