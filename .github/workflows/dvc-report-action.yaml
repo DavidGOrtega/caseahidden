@@ -44,7 +44,6 @@ jobs:
           unzip new-labels.zip
           rm -f new-labels.zip
           rm data/train/cats/cat.1000.jpg
-          dvc commit
           git add data.dvc
           git commit -m "v2"
           git tag v2
