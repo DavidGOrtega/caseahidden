@@ -1,0 +1,51 @@
+name: Test dvc-report-action
+
+on: push
+
+jobs:
+  run:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: setup python 
+        uses: actions/setup-python@v1
+        with:
+          python-version: 2.7
+
+      - name: install dvc
+        run: |
+          pip install dvc
+
+      - name: setup data case
+        run: |
+          cd ..
+          mkdir data_test
+          cd data_test
+
+          git init
+          dvc init
+          dvc install
+
+          dvc get https://github.com/iterative/dataset-registry tutorial/ver/data.zip
+          unzip data.zip
+          rm -f data.zip
+          dvc add data
+          git add .gitignore data.dvc
+          git commit -m "v1"
+          git tag v1
+
+          dvc get https://github.com/iterative/dataset-registry tutorial/ver/new-labels.zip
+          unzip new-labels.zip
+          rm -f new-labels.zip
+          rm data/train/cats/cat.1000.jpg
+          dvc commit
+          git add data.dvc
+          git commit -m "v2"
+          git tag v2
+
+      - uses: ./.github/actions/dvc-report-action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

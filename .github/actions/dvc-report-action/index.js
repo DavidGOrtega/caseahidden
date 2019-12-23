@@ -15,8 +15,6 @@ const summaryMD = async () => {
   //diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)
   const dvc = await exe('dvc -h');
 
-  console.log(dvc);
-
   return `
    - New data files:
       - sources/file1.txt  5Mb
