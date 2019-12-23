@@ -99,7 +99,7 @@ const run_action = async () => {
     console.log('Pulling from dvc remote');
     await exe('dvc pull');
 
-    check_dvc_data_report();
+    await check_dvc_data_report();
 
     const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
     if (!dvc_repro_skip && dvc_repro_file_exists) {
@@ -126,7 +126,6 @@ const run_action = async () => {
         }
 
       }
-      
       
       if (!dvc_repro_skip && !dvc_repro_file_exists) {
         console.log(`DVC repro file ${dvc_repro_file} not found`);
