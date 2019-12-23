@@ -21,6 +21,7 @@ jobs:
 
       - name: setup data case
         run: |
+          rm -rf .git
           git init
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
