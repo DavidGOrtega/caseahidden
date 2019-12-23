@@ -99,7 +99,7 @@ const run_action = async () => {
     console.log('Pulling from dvc remote');
     // await exe('dvc pull');
 
-    await check_dvc_data_report();
+    //await check_dvc_data_report();
 
     /* const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
     if (!dvc_repro_skip && dvc_repro_file_exists) {
