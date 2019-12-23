@@ -12,7 +12,7 @@ const exe = async (command) => {
 }
 
 const dvc_install = async () => {
-  exe("wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list && apt update && apt -y install dvc");
+  exe("sudo pip install dvc[all]");
 }
 
 const summaryMD = async () => {
@@ -34,7 +34,7 @@ const summaryMD = async () => {
 const checks = async () => {
   try {
     await dvc_install();
-    
+
     const github_token = core.getInput('github_token');
     const octokit = new github.GitHub(github_token);
 
