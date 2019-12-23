@@ -46,6 +46,8 @@ const checks = async () => {
     const started_at = new Date();
     const name = 'DVC Report';
 
+    console.log([owner, repo, head_sha, started_at, name]);
+
     await octokit.checks.create({
       owner,
       repo,

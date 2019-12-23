@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install dvc[all]
+          pip install dvc
 
       - uses: ./.github/actions/dvc-report-action
         with:
