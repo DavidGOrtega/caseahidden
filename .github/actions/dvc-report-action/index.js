@@ -33,7 +33,7 @@ const summaryMD = async () => {
 
 const checks = async () => {
   try {
-    await dvc_install();
+    //await dvc_install();
 
     const github_token = core.getInput('github_token');
     const octokit = new github.GitHub(github_token);
