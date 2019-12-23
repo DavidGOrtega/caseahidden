@@ -14,6 +14,7 @@ const exe = async (command) => {
 const summaryMD = async () => {
   //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
   const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+  console.log(dvc_out);
   const regex = /(\d+) files untouched, (\d+) files modified, (\d+) files added, (\d+) file deleted/g;
   const match = regex.exec(dvc_out);
 
