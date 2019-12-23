@@ -17,11 +17,12 @@ const summaryMD = async () => {
   console.log(dvc_out);
   const regex = /(\d+) files untouched, (\d+) files modified, (\d+) files added, (\d+) file deleted/g;
   const match = regex.exec(dvc_out);
+  console.log(match);
 
   const sections = [
-    { lbl: 'New', total: match[3], files: ['dummy.png', 'dummy.png', 'dummy.png'] },
-    { lbl: 'Modified', total: match[2], files: ['dummy.png']},
-    { lbl: 'Deleted', total: match[4], files: ['dummy.png'] },
+    { lbl: 'New', total: match[3], files: [`dummy.png\t\t30Mb`, `dummy.png\t\t30Mb`, `dummy.png\t\t30Mb`]  },
+    { lbl: 'Modified', total: match[2], files: [`dummy.png\t\t30Mb`]},
+    { lbl: 'Deleted', total: match[4], files: [`dummy.png\t\t30Mb`] },
   ];
 
   let summary = '';
