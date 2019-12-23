@@ -13,7 +13,7 @@ const exe = async (command) => {
 
 const summaryMD = async () => {
   //diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)
-  const dvc = await exe('dvc');
+  const dvc = await exe('dvc -h');
 
   console.log(dvc);
 
