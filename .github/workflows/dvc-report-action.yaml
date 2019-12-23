@@ -21,15 +21,11 @@ jobs:
 
       - name: setup data case
         run: |
-          cd ..
-          mkdir data_test
-          cd data_test
-
           git init
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          dvc init
+          dvc init --force
           dvc install
 
           dvc get https://github.com/iterative/dataset-registry tutorial/ver/data.zip
