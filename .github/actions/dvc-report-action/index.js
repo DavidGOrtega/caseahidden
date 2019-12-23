@@ -6,7 +6,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
-  if (stderr) throw new Error(stderr);
+  //if (stderr) throw new Error(stderr);
 
   return stdout;
 }
@@ -33,20 +33,20 @@ const summaryMD = async () => {
 
 const checks = async () => {
   try {
-    //await dvc_install();
+    // const repo_parts = process.env.GITHUB_REPOSITORY.split('/');
+    // const owner = repo_parts[0];
+    // const repo = repo_parts[1];
+    // const head_sha = process.env.GITHUB_SHA;
 
-    const github_token = core.getInput('github_token');
-    const octokit = new github.GitHub(github_token);
 
-    const repo_parts = process.env.GITHUB_REPOSITORY.split('/');
+    const owner = 'DavidGOrtega';
+    const repo = 'caseahidden';
+    const head_sha = github.context.sha;
+    const myToken = core.getInput('github_token');
+    const octokit = new github.GitHub(myToken);
 
-    const owner = repo_parts[0];
-    const repo = repo_parts[1];
-    const head_sha = process.env.GITHUB_SHA;
     const started_at = new Date();
     const name = 'DVC Report';
-
-    console.log([owner, repo, head_sha, started_at, name]);
 
     await octokit.checks.create({
       owner,
