@@ -12,25 +12,34 @@ const exe = async (command) => {
 }
 
 const summaryMD = async () => {
-  const dvc = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+  //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
+  const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+  const regex = /(\d+) files untouched, (\d+) files modified, (\d+) files added, (\d+) file deleted/g;
+  const match = regex.exec(dvc_out);
+  console.log(match);
+
+  const sections = [
+    { lbl: 'New', total: match[3] },
+    { lbl: 'Modified', total: match[2] },
+    { lbl: 'Deleted', total: match[4] },
+  ];
+
+  const summary = '';
+  sections.forEach(section => {
+    summary += `  - ${section.lbl} files:\n\s ${section.total} files total`;
+  });
 
   return `
     ${dvc}
 
-   - New data files:
-      - sources/file1.txt  5Mb
-   - Modified data files:
-      - model.pkl  65Mb
-      + processed/  741 files total
-   - Deleted files:
-      - sources/mapping.pkl   31Mb
+    ${summary}
   `;
 }
 
 const checks = async () => {
   try {
     await exe('ls -R data | wc -l');
-    
+
     const github_token = core.getInput('github_token');
     const octokit = new github.GitHub(github_token);
 
