@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   run:
 
-    runs-on: david
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
@@ -39,13 +39,15 @@ jobs:
           git commit -m "v1"
           git tag v1
 
-          for i in {10..50}
+          
+          for i in {10..20}
           do
             echo "sample$i" >> ./data/sample$i
           done
           rm data/sample1
           rm data/sample2
           echo modified >> data/sample3
+
           dvc commit -f -q
           git add data.dvc
           git commit -m "v2"

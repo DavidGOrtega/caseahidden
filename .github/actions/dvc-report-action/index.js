@@ -6,6 +6,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
+
   if (stderr) throw new Error(stderr);
 
   return stdout;
@@ -14,31 +15,33 @@ const exe = async (command) => {
 const summaryMD = async () => {
   //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
   const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
-  console.log(dvc_out);
 
   const regex = /(\d+) files? untouched, (\d+) files? modified, (\d+) files? added, (\d+) files? deleted/g;
   const match = regex.exec(dvc_out);
   console.log(match);
 
   const sections = [
-    { lbl: 'New', total: match[3], files: [`dummy.png\t\t30Mb`, `dummy.png\t\t30Mb`, `dummy.png\t\t30Mb`]  },
-    { lbl: 'Modified', total: match[2], files: [`dummy.png\t\t30Mb`]},
-    { lbl: 'Deleted', total: match[4], files: [`dummy.png\t\t30Mb`] },
+    { lbl: 'New', total: match[3], files: []  },
+    { lbl: 'Modified', total: match[2], files: [] },
+    { lbl: 'Deleted', total: match[4] },
   ];
 
   let summary = '';
   sections.forEach(section => {
-    summary += ` - ${section.lbl} files:  \n    - ${section.total} files total  \n`;
+    summary += ` - ${section.lbl} files: ${section.total}  \n`;
     
+    /*
     section.files.forEach(file => {
       summary += `    - ${file}  \n`;
     });
+    */
+
+    for (const i=0; i<section.total; i++)
+      summary += 'dummy.png\t\t30Mb';
   });
 
+  // TODO: extract file sizes and info from dcv changed files
   const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
-  console.log('git diff');
-  console.log(git_out);
-
 
   return summary;
 }

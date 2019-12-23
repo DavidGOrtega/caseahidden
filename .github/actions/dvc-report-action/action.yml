@@ -1,8 +1,14 @@
-name: 'dvc report'
-description: ''
+name: 'DVC-action'
+description: 'DVC action for CD4ML'
+
 inputs:
   github_token: 
     required: true
+
 runs:
   using: 'node12'
   main: 'index.js'
+
+branding:
+  icon: 'command'  
+  color: 'green'
