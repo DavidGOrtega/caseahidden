@@ -28,8 +28,11 @@ const summaryMD = async () => {
 
   let summary = '';
   sections.forEach(section => {
-    summary += ` - ${section.lbl} files:  \n    - ${section.total} files total\n`;
-
+    summary += ` - ${section.lbl} files:  \n    - ${section.total} files total  \n`;
+    
+    section.forEach(file => {
+      summary += `    - ${file}  \n`;
+    });
   });
 
   return summary;
