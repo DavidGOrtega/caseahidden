@@ -97,7 +97,7 @@ const run_action = async () => {
     }
 
     console.log('Pulling from dvc remote');
-    await exe('dvc pull');
+    // await exe('dvc pull');
 
     await check_dvc_data_report();
 

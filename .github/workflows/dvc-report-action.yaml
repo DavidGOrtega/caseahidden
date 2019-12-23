@@ -32,6 +32,7 @@ jobs:
           mkdir data
           for i in {1..10}
           do
+            echo creating file ./data/sample$i
             echo "sample$i" >> ./data/sample$i
           done
 
@@ -43,6 +44,7 @@ jobs:
 
           for i in {10..20}
           do
+            echo creating file ./data/sample$i
             echo "sample$i" >> ./data/sample$i
           done
           rm data/sample1
