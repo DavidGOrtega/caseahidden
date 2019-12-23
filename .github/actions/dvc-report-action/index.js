@@ -59,6 +59,8 @@ const checks = async () => {
     const title = 'Checksum Test';
     const summary = summaryMD()
 
+    console.log("kdksjkldjskdjksjdks");
+
     await octokit.checks.create({
       owner,
       repo,
