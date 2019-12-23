@@ -5,6 +5,22 @@ inputs:
   github_token: 
     required: true
 
+  dvc_repro_file:
+    required: false
+    default: 'Dvcfile'
+
+  dvc_repro_skip:
+    required: false
+    default: false
+
+  dvc_push:
+    required: false
+    default: true
+
+  skip_ci: 
+    required: false
+    default: '[ci skip]'
+
 runs:
   using: 'node12'
   main: 'index.js'
