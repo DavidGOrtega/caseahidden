@@ -1,15 +1,22 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-const summaryMD = async () => {
-  const { stdout, stderr } = await exec('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
-
+const exe = async (command) => {
+  const { stdout, stderr } = await exec(command);
   if (stderr) throw new Error(stderr);
 
+  return stdout;
+}
+
+const summaryMD = async () => {
+  await exe('pip install dvc[all]');
+  const dvc = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+
   return `
-  ${stout}  
+  ${dvc}  
 
    - New data files:
     - sources/file1.txt  5Mb
