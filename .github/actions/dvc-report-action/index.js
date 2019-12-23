@@ -16,12 +16,12 @@ const summaryMD = async () => {
 
   return `
    - New data files:
-    - sources/file1.txt  5Mb
+      - sources/file1.txt  5Mb
    - Modified data files:
-    - model.pkl  65Mb
-    - + processed/  741 files total
+      - model.pkl  65Mb
+      + processed/  741 files total
    - Deleted files:
-    - sources/mapping.pkl   31Mb
+      - sources/mapping.pkl   31Mb
   `;
 }
 
