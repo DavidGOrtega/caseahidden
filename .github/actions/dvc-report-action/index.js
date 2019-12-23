@@ -11,16 +11,10 @@ const exe = async (command) => {
   return stdout;
 }
 
-const dvc_install = async () => {
-  exe("yes | pip install dvc");
-}
-
 const summaryMD = async () => {
-  const dvc = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+  // const dvc = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
 
   return `
-  ${dvc}  
-
    - New data files:
     - sources/file1.txt  5Mb
    - Modified data files:
@@ -33,8 +27,6 @@ const summaryMD = async () => {
 
 const checks = async () => {
   try {
-    //await dvc_install();
-
     const github_token = core.getInput('github_token');
     const octokit = new github.GitHub(github_token);
 
@@ -58,8 +50,6 @@ const checks = async () => {
     const conclusion = 'success';
     const title = 'Checksum Test';
     const summary = await summaryMD();
-
-    console.log("kdksjkldjskdjksjdks");
 
     await octokit.checks.create({
       owner,
