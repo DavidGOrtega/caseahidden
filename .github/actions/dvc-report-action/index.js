@@ -57,7 +57,7 @@ const checks = async () => {
 
     const conclusion = 'success';
     const title = 'Checksum Test';
-    const summary = summaryMD()
+    const summary = await summaryMD();
 
     console.log("kdksjkldjskdjksjdks");
 
