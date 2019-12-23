@@ -6,7 +6,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
-  //if (stderr) throw new Error(stderr);
+  if (stderr) throw new Error(stderr);
 
   return stdout;
 }
@@ -33,30 +33,47 @@ const summaryMD = async () => {
 
 const checks = async () => {
   try {
-    console.log(github.context);
-    console.log(github.context.payload);
-    console.log(JSON.stringify(github.context));
+    //await dvc_install();
 
-    const owner = 'DavidGOrtega';
-    const repo = 'caseahidden';
-    const head_sha = github.context.sha;
-    const myToken = core.getInput('github_token');
+    const github_token = core.getInput('github_token');
+    const octokit = new github.GitHub(github_token);
 
-    const octokit = new github.GitHub(myToken);
+    const repo_parts = process.env.GITHUB_REPOSITORY.split('/');
+
+    const owner = repo_parts[0];
+    const repo = repo_parts[1];
+    const head_sha = process.env.GITHUB_SHA;
+    const started_at = new Date();
+    const name = 'DVC Report';
+
     await octokit.checks.create({
       owner,
       repo,
       head_sha,
-  
-      started_at: new Date(),
+      started_at,
+      name,
+      status: 'in_progress'
+    })
+
+    const conclusion = 'success';
+    const title = 'Checksum Test';
+    const summary = summaryMD()
+
+    console.log("kdksjkldjskdjksjdks");
+
+    await octokit.checks.create({
+      owner,
+      repo,
+      head_sha,
+      started_at,
+      conclusion,
+
       completed_at: new Date(),
-      conclusion: 'success',
-  
-      name: 'DVC Report',
+      name,
       status: 'completed',
       output: {
-        title: 'Checksum test',
-        summary: JSON.stringify([github.context.payload.before, github.context.payload.after]),
+        title,
+        summary
       }
     })
   
