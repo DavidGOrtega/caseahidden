@@ -9,7 +9,6 @@ const fs = require('fs')
 const github_token = core.getInput('github_token');
 const dvc_repro_file = core.getInput('dvc_repro_file');
 const dvc_repro_skip = core.getInput('dvc_repro_skip');
-const dvc_push = core.getInput('dvc_push');
 const skip_ci = core.getInput('skip_ci');
 
 const GITHUB_SHA = process.env.GITHUB_SHA;
@@ -143,6 +142,5 @@ const run_action = async () => {
     core.setFailed(error.message);
   }
 }
-
 
 run_action();
