@@ -23,6 +23,8 @@ const octokit = new github.GitHub(github_token);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
+  console.log('stdout');
+  console.log(stdout);
 
   if (stderr) throw new Error(stderr);
 
