@@ -36,7 +36,6 @@ const data_report_summary_md = async () => {
   const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
 
   const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
-  console.log(dvc_out);
 
   //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
   const regex = /(\d+) files? untouched, (\d+) files? modified, (\d+) files? added, (\d+) files? deleted/g;
