@@ -149,6 +149,11 @@ const run_repro = async () => {
   }
 }
 
+const install_dvc = async () => {
+  console.log('installing dvc...')
+  exe('pip install dvc[all]');
+}
+
 const run_action = async () => {
 
   try {
@@ -159,7 +164,7 @@ const run_action = async () => {
       return 0;
     }
 
-    await exe('pip install dvc[all]');
+    await install_dvc();
     await run_repro();
     await check_dvc_report();
   
