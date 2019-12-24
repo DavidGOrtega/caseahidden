@@ -58,7 +58,7 @@ const dvc_report_data_md = async () => {
     });
   
   } catch (err) {
-    console.error(err.message);
+    console.error(err);
   }
 
   return summary;
@@ -72,7 +72,7 @@ const dvc_report_metrics_md = async () => {
     summary = await exe('dvc metrics show');
   
   } catch (err) {
-    console.error(err.message);
+    console.error(err);
   }
  
   return summary;
@@ -166,9 +166,6 @@ const install_dvc = async () => {
 }
 
 const run_action = async () => {
-
-  console.error("this is an error");
-
   try {
     console.log('Checking skip');
     const last_log = await exe('git log -1');
