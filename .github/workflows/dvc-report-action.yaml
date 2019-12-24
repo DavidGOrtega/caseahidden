@@ -1,4 +1,4 @@
-name: Test dvc-report-action
+name: dvc-action
 
 on: [push, pull_request]
 
@@ -37,8 +37,6 @@ jobs:
           dvc add data
           git add .gitignore data.dvc
           git commit -m "v1"
-          git tag v1
-
 
           for i in {11..25}
           do
@@ -52,7 +50,6 @@ jobs:
           dvc commit -f -q
           git add data.dvc
           git commit -m "v2"
-          git tag v2
 
       - uses: ./.github/actions/dvc-report-action
         with:
