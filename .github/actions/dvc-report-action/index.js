@@ -102,14 +102,14 @@ const check_dvc_report = async () => {
 
 
 const run_repro = async () => {
+  
   const has_dvc_remote = (await exe('dvc remote list')).length;
-
   if (has_dvc_remote) {
     console.log('Pulling from dvc remote');
     await exe('dvc pull');
   
   } else {
-    console.log('Experiment does not have dvc remote');
+    console.log('Experiment does not have dvc remote!');
   }
 
   const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
@@ -141,6 +141,8 @@ const run_repro = async () => {
         await exe('dvc push');
       }
 
+
+      // TODO: save artifacts as releases
     }
   }
 }
