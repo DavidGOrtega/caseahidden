@@ -15,10 +15,6 @@ jobs:
         with:
           python-version: 2.7
 
-      - name: install dvc
-        run: |
-          pip install dvc
-
       - name: setup data case
         run: |
           rm -rf .git
@@ -59,3 +55,4 @@ jobs:
       - uses: ./.github/actions/dvc-report-action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          dvc_repro_skip: true

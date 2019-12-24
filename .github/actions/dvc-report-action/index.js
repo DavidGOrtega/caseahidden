@@ -23,7 +23,7 @@ const octokit = new github.GitHub(github_token);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
-  console.log('stdout');
+  console.log(command);
   console.log(stdout);
 
   if (stderr) throw new Error(stderr);
@@ -32,7 +32,7 @@ const exe = async (command) => {
 }
 
 
-const data_report_summary_md = async () => {
+const dvc_report_data_md = async () => {
 
   // TODO: extract file sizes and info from dcv changed files
   const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
@@ -60,14 +60,32 @@ const data_report_summary_md = async () => {
   return summary;
 }
 
+const dvc_report_metrics_md = async () => {
+  const dvc_out = await exe('dvc metrics show');
 
-const check_dvc_data_report = async () => {
+  return dvc_out;
+}
+
+const check_dvc_report_summary = async () => {
+  const data = await dvc_report_data_md();
+  const metrics = await dvc_report_metrics_md();
+
+  const summary = `
+    ### Metrics  
+    ${metrics}  
+
+    ### Data
+    ${data}
+  `;
+}
+
+const check_dvc_report = async () => {
 
   const started_at = new Date();
   const name = 'DVC Data Report';
   const conclusion = 'success';
   const title = 'Checksum Test';
-  const summary = await data_report_summary_md();
+  const summary = await check_dvc_report_summary();
 
   await octokit.checks.create({
     owner,
@@ -87,59 +105,62 @@ const check_dvc_data_report = async () => {
 }
 
 
+const run_repro = async () => {
+  const has_dvc_remote = (await exe('dvc remote list')).length;
+  
+  if (has_dvc_remote) {
+    console.log('Pulling from dvc remote');
+    await exe('dvc pull');
+  
+  } else {
+    console.log('Experiment does not have dvc remote');
+  }
+
+  const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
+  
+  if (!dvc_repro_skip && !dvc_repro_file_exists) {
+    throw new Error(`DVC repro file ${dvc_repro_file} not found`);
+  }
+
+  if (!dvc_repro_skip && dvc_repro_file_exists) {
+
+    console.log(`echo Running dvc repro ${dvc_repro_file}`);
+    await exe(`dvc repro ${dvc_repro_file}`);
+
+    const has_changes = false; //if ! git diff-index --quiet HEAD --; then
+    if (has_changes) {
+      console.log('Pushing to repo');
+
+      await exe(`
+        dvc commit -f && \
+        git config --local user.email "action@github.com" && \
+        git config --local user.name "GitHub Action" && \
+        git commit -m "dvc repro ${skip_ci}" -a && \
+        git remote add github "https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git"
+        git push github HEAD:${GITHUB_REF}
+      `);
+
+      if (has_dvc_remote) {
+        console.log('Pushing to dvc remote');
+        await exe('dvc push');
+      }
+
+    }
+  }
+}
+
 const run_action = async () => {
 
   try {
     console.log('Checking skip');
     const last_log = await exe('git log -1');
-    console.log(last_log);
     if (last_log.includes(skip_ci)) {
       console.log(`${skip_ci} found! skipping task`);
       return 0;
     }
 
-    const has_dvc_remote = (await exe('dvc remote list')).length;
-    if (has_dvc_remote) {
-      console.log('Pulling from dvc remote');
-      await exe('dvc pull');
-    
-    } else {
-      console.log('Experiment does not have dvc remote');
-    }
-    
-    await check_dvc_data_report();
-
-    const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
-    if (!dvc_repro_skip && dvc_repro_file_exists) {
-
-      console.log(`echo Running dvc repro ${dvc_repro_file}`);
-      await exe(`dvc repro ${dvc_repro_file}`);
-
-      const has_changes = false; //if ! git diff-index --quiet HEAD --; then
-      if (has_changes) {
-        console.log('Pushing to repo');
-
-        await exe(`
-          dvc commit -f && \
-          git config --local user.email "action@github.com" && \
-          git config --local user.name "GitHub Action" && \
-          git commit -m "dvc repro ${skip_ci}" -a && \
-          git remote add github "https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git"
-          git push github HEAD:${GITHUB_REF}
-        `);
-
-        if (has_dvc_remote) {
-          console.log('Pushing to dvc remote');
-          await exe('dvc push');
-        }
-
-      }
-      
-      if (!dvc_repro_skip && !dvc_repro_file_exists) {
-        console.log(`DVC repro file ${dvc_repro_file} not found`);
-      }
-
-    }
+    await run_repro();
+    await check_dvc_report();
   
   } catch (error) {
     core.setFailed(error.message);
