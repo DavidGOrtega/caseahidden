@@ -3,7 +3,7 @@ name: dvc-action
 on: [push, pull_request]
 
 jobs:
-  run:
+  data-scenario:
 
     runs-on: ubuntu-latest
 
@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: 2.7
 
-      - name: setup data case
+      - name: setup data
         run: |
           pip install dvc
           
@@ -38,18 +38,6 @@ jobs:
           git add .gitignore data.dvc
           git commit -m "v1"
 
-          for i in {11..25}
-          do
-            echo creating file ./data/sample$i
-            echo "sample$i" >> ./data/sample$i
-          done
-          rm data/sample1
-          rm data/sample2
-          echo modified >> data/sample3
-
-          dvc commit -f -q
-          git add data.dvc
-          git commit -m "v2"
 
       - uses: ./.github/actions/dvc-report-action
         with:
