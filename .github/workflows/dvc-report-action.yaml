@@ -26,7 +26,6 @@ jobs:
 
           dvc init --force
           dvc install
-          git commit -m "Initialize DVC"
 
           mkdir data
           for i in {1..10}

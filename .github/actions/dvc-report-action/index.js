@@ -37,8 +37,14 @@ const dvc_report_data_md = async () => {
     // TODO: extract file sizes and info from dcv changed files
     // const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
 
-    const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
-
+    let dvc_out;
+    try {
+      dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+    
+    } catch (err) {
+      dvc_out = await exe('dvc diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 $(git rev-parse HEAD)');
+    }
+    
     //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
     const regex = /(\d+) files? untouched, (\d+) files? modified, (\d+) files? added, (\d+) files? deleted/g;
     const match = regex.exec(dvc_out);
