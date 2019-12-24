@@ -77,6 +77,8 @@ const check_dvc_report_summary = async () => {
     ### Data
     ${data}
   `;
+
+  return summary;
 }
 
 const check_dvc_report = async () => {
