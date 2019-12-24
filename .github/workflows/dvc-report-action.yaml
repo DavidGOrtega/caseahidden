@@ -17,6 +17,8 @@ jobs:
 
       - name: setup data case
         run: |
+          pip install dvc
+          
           rm -rf .git
           git init
           git config --local user.email "action@github.com"
