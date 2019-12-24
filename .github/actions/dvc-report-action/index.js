@@ -23,8 +23,6 @@ const octokit = new github.GitHub(github_token);
 
 const exe = async (command) => {
   const { stdout, stderr } = await exec(command);
-  console.log(command);
-  console.log(stdout);
 
   if (stderr) throw new Error(stderr);
 
@@ -33,44 +31,59 @@ const exe = async (command) => {
 
 
 const dvc_report_data_md = async () => {
+  let summary = 'No data available';
 
-  // TODO: extract file sizes and info from dcv changed files
-  const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+  try {
+    // TODO: extract file sizes and info from dcv changed files
+    // const git_out = await exe('git diff --name-only $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
 
-  const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
+    const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
 
-  //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
-  const regex = /(\d+) files? untouched, (\d+) files? modified, (\d+) files? added, (\d+) files? deleted/g;
-  const match = regex.exec(dvc_out);
+    //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
+    const regex = /(\d+) files? untouched, (\d+) files? modified, (\d+) files? added, (\d+) files? deleted/g;
+    const match = regex.exec(dvc_out);
 
-  const sections = [
-    { lbl: 'New', total: match[3] },
-    { lbl: 'Modified', total: match[2] },
-    { lbl: 'Deleted', total: match[4] },
-  ];
+    const sections = [
+      { lbl: 'New', total: match[3] },
+      { lbl: 'Modified', total: match[2] },
+      { lbl: 'Deleted', total: match[4] },
+    ];
 
-  let summary = '';
-  sections.forEach(section => {
-    summary += ` - ${section.lbl} files: ${section.total}  \n`;
+    summary = '';
+    sections.forEach(section => {
+      summary += ` - ${section.lbl} files: ${section.total}  \n`;
 
-    for (let i=0; i<section.total; i++)
-      summary += `    - ${section.lbl}-dummy.png\t\t30Mb\n`;
-  });
+      for (let i=0; i<section.total; i++)
+        summary += `    - ${section.lbl}-dummy.png\t\t30Mb\n`;
+    });
+  
+  } catch (err) {
+    console.error(err.message);
+  }
 
   return summary;
 }
 
-const dvc_report_metrics_md = async () => {
-  const dvc_out = await exe('dvc metrics show');
 
-  return dvc_out;
+const dvc_report_metrics_md = async () => {
+  let summary = 'No metrics available';
+
+  try {
+    summary = await exe('dvc metrics show');
+  
+  } catch (err) {
+    console.error(err.message);
+  }
+ 
+  return summary;
 }
+
 
 const check_dvc_report_summary = async () => {
   const data = await dvc_report_data_md();
   const metrics = await dvc_report_metrics_md();
 
-  const summary = `### Data  \n${data}### Metrics  \n${metrics}`;
+  const summary = `### Data  \n${data}  \n### Metrics  \n${metrics}`;
 
   return summary;
 }
@@ -78,9 +91,9 @@ const check_dvc_report_summary = async () => {
 const check_dvc_report = async () => {
 
   const started_at = new Date();
-  const name = 'DVC Data Report';
+  const name = 'DVC Report';
   const conclusion = 'success';
-  const title = 'Checksum Test';
+  const title = 'DVC Report';
   const summary = await check_dvc_report_summary();
 
   await octokit.checks.create({
@@ -123,15 +136,15 @@ const run_repro = async () => {
     console.log(`echo Running dvc repro ${dvc_repro_file}`);
     await exe(`dvc repro ${dvc_repro_file}`);
 
-    const has_changes = false; //if ! git diff-index --quiet HEAD --; then
+    const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
     if (has_changes) {
-      console.log('Pushing to repo');
+      console.log('Pushing...');
 
       await exe(`
         dvc commit -f && \
         git config --local user.email "action@github.com" && \
         git config --local user.name "GitHub Action" && \
-        git commit -m "dvc repro ${skip_ci}" -a && \
+        git commit -a -m "dvc repro ${skip_ci}" && \
         git remote add github "https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git"
         git push github HEAD:${GITHUB_REF}
       `);
@@ -153,6 +166,8 @@ const install_dvc = async () => {
 }
 
 const run_action = async () => {
+
+  console.error("this is an error");
 
   try {
     console.log('Checking skip');
