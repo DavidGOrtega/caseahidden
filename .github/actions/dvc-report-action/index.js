@@ -117,6 +117,17 @@ const check_dvc_report = async () => {
 
 const run_repro = async () => {
   
+  if (dvc_repro_skip) {
+    console.log('DVC repro skipped');
+    return;
+  }
+
+  const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
+  
+  if (!dvc_repro_file_exists) 
+    throw new Error(`DVC repro file ${dvc_repro_file} not found`);
+
+
   const has_dvc_remote = (await exe('dvc remote list')).length;
   if (has_dvc_remote) {
     console.log('Pulling from dvc remote');
@@ -126,38 +137,29 @@ const run_repro = async () => {
     console.log('Experiment does not have dvc remote!');
   }
 
-  const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
-  
-  if (!dvc_repro_skip && !dvc_repro_file_exists) {
-    throw new Error(`DVC repro file ${dvc_repro_file} not found`);
-  }
+  console.log(`echo Running dvc repro ${dvc_repro_file}`);
+  await exe(`dvc repro ${dvc_repro_file}`);
 
-  if (!dvc_repro_skip && dvc_repro_file_exists) {
+  const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
+  if (has_changes) {
+    console.log('Pushing...');
 
-    console.log(`echo Running dvc repro ${dvc_repro_file}`);
-    await exe(`dvc repro ${dvc_repro_file}`);
+    await exe(`
+      dvc commit -f && \
+      git config --local user.email "action@github.com" && \
+      git config --local user.name "GitHub Action" && \
+      git commit -a -m "dvc repro ${skip_ci}" && \
+      git remote add github "https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git"
+      git push github HEAD:${GITHUB_REF}
+    `);
 
-    const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
-    if (has_changes) {
-      console.log('Pushing...');
-
-      await exe(`
-        dvc commit -f && \
-        git config --local user.email "action@github.com" && \
-        git config --local user.name "GitHub Action" && \
-        git commit -a -m "dvc repro ${skip_ci}" && \
-        git remote add github "https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git"
-        git push github HEAD:${GITHUB_REF}
-      `);
-
-      if (has_dvc_remote) {
-        console.log('Pushing to dvc remote');
-        await exe('dvc push');
-      }
-
-
-      // TODO: save artifacts as releases
+    if (has_dvc_remote) {
+      console.log('Pushing to dvc remote');
+      await exe('dvc push');
     }
+
+
+    // TODO: save artifacts as releases
   }
 }
 
