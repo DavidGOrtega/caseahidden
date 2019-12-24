@@ -90,6 +90,7 @@ const run_action = async () => {
   try {
     console.log('Checking skip');
     const last_log = await exe('git log -1');
+    console.log(last_log);
     if (last_log.includes(skip_ci)) {
       console.log(`${skip_ci} found! skipping task`);
       return 0;
