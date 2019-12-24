@@ -37,7 +37,7 @@ const data_report_summary_md = async () => {
 
   const dvc_out = await exe('dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)');
   console.log(dvc_out);
-  
+
   //1799 files untouched, 0 files modified, 1000 files added, 1 file deleted, size was increased by 23.0 MB
   const regex = /(\d+) files? untouched, (\d+) files? modified, (\d+) files? added, (\d+) files? deleted/g;
   const match = regex.exec(dvc_out);
@@ -53,7 +53,7 @@ const data_report_summary_md = async () => {
     summary += ` - ${section.lbl} files: ${section.total}  \n`;
 
     for (let i=0; i<section.total; i++)
-      summary += '    - dummy.png\t\t30Mb\n';
+      summary += `    - ${section.lbl}-dummy.png\t\t30Mb\n`;
   });
 
   return summary;
