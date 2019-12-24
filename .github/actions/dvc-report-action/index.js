@@ -69,7 +69,8 @@ const dvc_report_metrics_md = async () => {
   let summary = 'No metrics available';
 
   try {
-    summary = await exe('dvc metrics show');
+    throw new Error("IM AN ERROR");
+    //summary = await exe('dvc metrics show');
   
   } catch (err) {
     console.error(err);
