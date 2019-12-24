@@ -13,10 +13,6 @@ inputs:
     required: false
     default: false
 
-  dvc_push:
-    required: false
-    default: true
-
   skip_ci: 
     required: false
     default: '[ci skip]'

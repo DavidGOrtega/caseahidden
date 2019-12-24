@@ -96,12 +96,18 @@ const run_action = async () => {
       return 0;
     }
 
-    console.log('Pulling from dvc remote');
-    // await exe('dvc pull');
-
+    const has_dvc_remote = (await exe('dvc remote list')).length;
+    if (has_dvc_remote) {
+      console.log('Pulling from dvc remote');
+      await exe('dvc pull');
+    
+    } else {
+      console.log('Experiment does not have dvc remote');
+    }
+    
     await check_dvc_data_report();
 
-    /* const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
+    const dvc_repro_file_exists = fs.existsSync(dvc_repro_file);
     if (!dvc_repro_skip && dvc_repro_file_exists) {
 
       console.log(`echo Running dvc repro ${dvc_repro_file}`);
@@ -120,7 +126,7 @@ const run_action = async () => {
           git push github HEAD:${GITHUB_REF}
         `);
 
-        if (dvc_push) {
+        if (has_dvc_remote) {
           console.log('Pushing to dvc remote');
           await exe('dvc push');
         }
@@ -131,7 +137,7 @@ const run_action = async () => {
         console.log(`DVC repro file ${dvc_repro_file} not found`);
       }
 
-    } */
+    }
   
   } catch (error) {
     core.setFailed(error.message);
