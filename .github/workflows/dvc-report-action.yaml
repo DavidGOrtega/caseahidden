@@ -42,7 +42,7 @@ jobs:
           git tag v1
 
 
-          for i in {10..20}
+          for i in {10..25}
           do
             echo creating file ./data/sample$i
             echo "sample$i" >> ./data/sample$i
