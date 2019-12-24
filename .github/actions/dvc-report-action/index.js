@@ -107,7 +107,7 @@ const check_dvc_report = async () => {
 
 const run_repro = async () => {
   const has_dvc_remote = (await exe('dvc remote list')).length;
-  
+
   if (has_dvc_remote) {
     console.log('Pulling from dvc remote');
     await exe('dvc pull');
@@ -159,6 +159,7 @@ const run_action = async () => {
       return 0;
     }
 
+    await exe('pip install dvc[all]');
     await run_repro();
     await check_dvc_report();
   
