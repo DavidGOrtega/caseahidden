@@ -70,13 +70,7 @@ const check_dvc_report_summary = async () => {
   const data = await dvc_report_data_md();
   const metrics = await dvc_report_metrics_md();
 
-  const summary = `
-    ### Data
-    ${data}
-
-    ### Metrics  
-    ${metrics}  
-  `;
+  const summary = `### Data  \n${data}### Metrics  \n${metrics}`;
 
   return summary;
 }
