@@ -12,6 +12,7 @@ const dvc_repro_file = core.getInput('dvc_repro_file');
 const dvc_repro_skip = core.getInput('dvc_repro_skip') === 'true';
 const skip_ci = core.getInput('skip_ci');
 
+const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW;
 const GITHUB_SHA = process.env.GITHUB_SHA;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 
@@ -96,7 +97,7 @@ const check_dvc_report_summary = async () => {
 const check_dvc_report = async () => {
 
   const started_at = new Date();
-  const name = 'DVC Report';
+  const name = `DVC Report ${GITHUB_WORKFLOW}`;
   const conclusion = 'success';
   const title = 'DVC Report';
   const summary = await check_dvc_report_summary();
