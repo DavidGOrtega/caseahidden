@@ -230,7 +230,7 @@ const run_action = async () => {
       return 0;
     }
 
-    await exe(`git log -1 ${GITHUB_SHA}`);
+    await exe(`git show ${GITHUB_SHA}`);
     await install_dvc();
     await run_repro();
     await check_dvc_report();
