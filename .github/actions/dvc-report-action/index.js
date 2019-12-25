@@ -12,7 +12,7 @@ const dvc_repro_file = core.getInput('dvc_repro_file');
 const dvc_repro_skip = core.getInput('dvc_repro_skip');
 const skip_ci = core.getInput('skip_ci');
 
-console.log([dvc_repro_skip, dvc_repro_file, dvc_repro_skip]);
+console.log([dvc_repro_skip, dvc_repro_skip === false, dvc_repro_skip === 'false']);
 
 const GITHUB_SHA = process.env.GITHUB_SHA;
 const GITHUB_ACTOR = process.env.GITHUB_ACTOR;
