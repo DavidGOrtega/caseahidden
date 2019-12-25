@@ -223,9 +223,11 @@ const install_dvc = async () => {
 
 const run_action = async () => {
 
+  await exe(`dvc diff ${github.context.payload.after} ${GITHUB_SHA}`);
+
   console.log(`git show ${GITHUB_SHA}`);
   await exe(`git show ${GITHUB_SHA}`);
-
+  
   try {
     console.log('Checking skip');
     const last_log = await exe('git log -1');
