@@ -171,17 +171,15 @@ const run_repro = async () => {
   const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
   if (has_changes) {
     console.log('Pushing...');
-    console.log(GITHUB_ACTOR);
-    console.log(github_token);
-    console.log(`https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git`);
 
     await exe(`
+      echo "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
       dvc commit -f && \
       git config --local user.email "action@github.com" && \
       git config --local user.name "GitHub Action" && \
       git commit -a -m "dvc repro ${skip_ci}" && \
-      git remote add github "https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git"
-      git push github HEAD:${GITHUB_REF}
+      git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+      git push github HEAD:$GITHUB_REF
     `);
 
     if (has_dvc_remote) {

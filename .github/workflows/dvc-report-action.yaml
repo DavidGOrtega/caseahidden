@@ -62,6 +62,9 @@ jobs:
           pip install dvc
 
       - uses: ./.github/actions/dvc-report-action
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           dvc_repro_file: train.dvc
