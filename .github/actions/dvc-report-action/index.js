@@ -230,6 +230,8 @@ const run_action = async () => {
       return 0;
     }
 
+    await exe(`git show ${github.context.payload.after}`);
+    await exe(`git show ${github.context.payload.before}`);
     await exe(`git show ${GITHUB_SHA}`);
     await install_dvc();
     await run_repro();
