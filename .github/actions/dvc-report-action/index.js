@@ -103,7 +103,7 @@ const check_dvc_report_summary = async () => {
 const check_dvc_report = async () => {
 
   const started_at = new Date();
-  const name = `DVC Report ${uudi()}`;
+  const name = `DVC Report ${uuid()}`;
   const conclusion = 'success';
   const title = 'DVC Report';
   const summary = await check_dvc_report_summary();
