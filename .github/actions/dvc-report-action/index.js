@@ -183,6 +183,8 @@ const run_repro = async () => {
       git config --local user.email "action@github.com"
       git config --local user.name "GitHub Action"
       git commit -a -m "dvc repro ${skip_ci}"
+      git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+      git push github HEAD:$GITHUB_REF
     `);
 
     if (has_dvc_remote) {
