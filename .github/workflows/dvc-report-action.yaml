@@ -18,6 +18,9 @@ jobs:
       - name: setup data
         run: |
           pip install dvc
+          
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
 
           dvc init --force
           dvc install
