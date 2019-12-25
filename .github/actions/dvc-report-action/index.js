@@ -12,17 +12,16 @@ const dvc_repro_file = core.getInput('dvc_repro_file');
 const dvc_repro_skip = core.getInput('dvc_repro_skip') === 'true';
 const skip_ci = core.getInput('skip_ci');
 
-const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW;
 const GITHUB_SHA = process.env.GITHUB_SHA;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 
 const [owner, repo] = GITHUB_REPOSITORY.split('/');
 const octokit = new github.GitHub(github_token);
 
-console.log(core);
-console.log(process.env);
-console.log(github.context);
-console.log(github.context.payload);
+// console.log(core);
+// console.log(process.env);
+// console.log(github.context);
+// console.log(github.context.payload);
 
 const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
@@ -32,6 +31,10 @@ const exe = async (command) => {
   return stdout ? stdout : stderr;
 }
 
+
+const uuid = () =>{
+  return new Date().getUTCMilliseconds()
+}
 
 const dvc_report_data_md = async () => {
   let summary = 'No data available';
@@ -100,7 +103,7 @@ const check_dvc_report_summary = async () => {
 const check_dvc_report = async () => {
 
   const started_at = new Date();
-  const name = `DVC Report ${GITHUB_WORKFLOW}`;
+  const name = `DVC Report ${uudi()}`;
   const conclusion = 'success';
   const title = 'DVC Report';
   const summary = await check_dvc_report_summary();
