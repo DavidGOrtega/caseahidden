@@ -12,8 +12,6 @@ const dvc_repro_file = core.getInput('dvc_repro_file');
 const dvc_repro_skip = core.getInput('dvc_repro_skip') === 'true';
 const skip_ci = core.getInput('skip_ci');
 
-console.log([dvc_repro_skip, dvc_repro_skip === false, dvc_repro_skip === 'false']);
-
 const GITHUB_SHA = process.env.GITHUB_SHA;
 const GITHUB_ACTOR = process.env.GITHUB_ACTOR;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
@@ -173,6 +171,7 @@ const run_repro = async () => {
   const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
   if (has_changes) {
     console.log('Pushing...');
+    console.log(`https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git`);
 
     await exe(`
       dvc commit -f && \
