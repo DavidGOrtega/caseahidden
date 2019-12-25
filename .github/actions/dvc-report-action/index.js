@@ -9,7 +9,7 @@ const path = require('path');
 
 const github_token = core.getInput('github_token');
 const dvc_repro_file = core.getInput('dvc_repro_file');
-const dvc_repro_skip = core.getInput('dvc_repro_skip');
+const dvc_repro_skip = core.getInput('dvc_repro_skip') === 'true';
 const skip_ci = core.getInput('skip_ci');
 
 console.log([dvc_repro_skip, dvc_repro_skip === false, dvc_repro_skip === 'false']);
