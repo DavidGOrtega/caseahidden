@@ -206,7 +206,7 @@ const run_repro = async () => {
 
 const install_dvc = async () => {
   console.log('installing dvc...')
-  exe('pip install dvc');
+  await exe('pip install dvc');
 }
 
 const run_action = async () => {
