@@ -19,7 +19,8 @@ const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const [owner, repo] = GITHUB_REPOSITORY.split('/');
 const octokit = new github.GitHub(github_token);
 
-
+console.log(github.context);
+console.log(github.context.payload);
 
 const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
