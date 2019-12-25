@@ -18,10 +18,10 @@ const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const [owner, repo] = GITHUB_REPOSITORY.split('/');
 const octokit = new github.GitHub(github_token);
 
-// console.log(core);
-// console.log(process.env);
-// console.log(github.context);
-// console.log(github.context.payload);
+console.log(core);
+console.log(process.env);
+console.log(github.context);
+console.log(github.context.payload);
 
 const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
@@ -48,7 +48,9 @@ const dvc_report_data_md = async () => {
 
     let dvc_out;
     try {
-      dvc_out = await exe(`dvc diff ${GITHUB_SHA} $(git rev-parse HEAD)`);
+      
+      dvc_out = await exe(`dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)`);
+      // dvc_out = await exe(`dvc diff ${GITHUB_SHA} $(git rev-parse HEAD)`);
     
     } catch (err) {
       dvc_out = await exe('dvc diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 $(git rev-parse HEAD)');
@@ -229,6 +231,15 @@ const run_action = async () => {
     }
 
     await install_dvc();
+
+
+    await exe(`dvc diff ${github.context.payload.after} ${GITHUB_SHA}`);
+
+  console.log(`git show ${GITHUB_SHA}`);
+  await exe(`git show ${GITHUB_SHA}`);
+  
+
+  
     await run_repro();
     await check_dvc_report();
   
