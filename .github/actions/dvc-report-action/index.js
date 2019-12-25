@@ -20,7 +20,7 @@ const octokit = new github.GitHub(github_token);
 
 
 
-const exe = async (command, ) => {
+const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
 
   if (error) throw new Error(stderr);
@@ -74,7 +74,7 @@ const dvc_report_metrics_md = async () => {
   let summary = 'No metrics available';
 
   try {
-    summary = await exe('dvc metrics show');
+    summary = await exe('dvc metrics show', true);
   
   } catch (err) {
     console.error(err);
@@ -122,7 +122,7 @@ const octokit_upload_release_asset = async (url, filepath) => {
   const stat = fs.statSync(filepath);
 
   if (!stat.isFile()) {
-      console.log(`Skipping ${filepath}, since its not a file`);
+      console.log(`Skipping, ${filepath} its not a file`);
       return;
   }
 
