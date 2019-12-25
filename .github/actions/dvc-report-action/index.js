@@ -120,16 +120,16 @@ const check_dvc_report = async () => {
   })
 }
 
-const octokit_upload_release_asset = async (url, path) => {
-  const stat = fs.statSync(path);
+const octokit_upload_release_asset = async (url, filepath) => {
+  const stat = fs.statSync(filepath);
 
   if (!stat.isFile()) {
-      console.log(`Skipping ${file}, since its not a file`);
+      console.log(`Skipping ${filepath}, since its not a file`);
       return;
   }
 
-  const file = fs.readFileSync(file);
-  const name = path.basename(file);
+  const file = fs.readFileSync(filepath);
+  const name = path.basename(filepath);
 
   await octokit.repos.uploadReleaseAsset({
       url,
@@ -172,7 +172,22 @@ const run_repro = async () => {
   if (has_changes) {
     console.log('Pushing...');
 
-    
+    /*
+    await exe(`
+      dvc commit -f && \
+      git config --local user.email "action@github.com" && \
+      git config --local user.name "GitHub Action" && \
+      git commit -a -m "dvc repro ${skip_ci}" && \
+      git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" && \
+      git push github HEAD:$GITHUB_REF
+    `);
+
+    if (has_dvc_remote) {
+      console.log('Pushing to dvc remote');
+      await exe('dvc push');
+    }
+    */
+
 
     // TODO: save artifacts as releases
     const release = await octokit.repos.createRelease({
