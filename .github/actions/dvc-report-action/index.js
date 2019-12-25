@@ -223,13 +223,9 @@ const install_dvc = async () => {
 
 const run_action = async () => {
 
-  console.log(`git show ${github.context.payload.after}`);
-  await exe(`git show ${github.context.payload.after}`);
-  console.log(`git show ${github.context.payload.before}`);
-  await exe(`git show ${github.context.payload.before}`);
   console.log(`git show ${GITHUB_SHA}`);
   await exe(`git show ${GITHUB_SHA}`);
-  
+
   try {
     console.log('Checking skip');
     const last_log = await exe('git log -1');
