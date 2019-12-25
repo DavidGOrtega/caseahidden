@@ -23,8 +23,6 @@ const octokit = new github.GitHub(github_token);
 // console.log(github.context);
 // console.log(github.context.payload);
 
-console.log(GITHUB_SHA);
-
 const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
 
@@ -50,7 +48,9 @@ const dvc_report_data_md = async () => {
 
     let dvc_out;
     try {
+      console.log(GITHUB_SHA);
       exe(`echo $(git rev-parse HEAD~1)`)
+      
       dvc_out = await exe(`dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)`);
       // dvc_out = await exe(`dvc diff ${GITHUB_SHA} $(git rev-parse HEAD)`);
     
