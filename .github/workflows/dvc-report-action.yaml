@@ -1,63 +1,63 @@
-name: dvc-action
+# name: dvc-action
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  data-scenario:
+# jobs:
+#   data-scenario:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v1
+#     steps:
+#       - uses: actions/checkout@v1
 
-      - name: setup python 
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.6
+#       - name: setup python 
+#         uses: actions/setup-python@v1
+#         with:
+#           python-version: 3.6
 
-      - name: setup data
-        run: |
-          pip install dvc
+#       - name: setup data
+#         run: |
+#           pip install dvc
           
-          rm -rf .git
-          git init
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+#           rm -rf .git
+#           git init
+#           git config --local user.email "action@github.com"
+#           git config --local user.name "GitHub Action"
 
-          dvc init --force
-          dvc install
-          git commit -m "Initialize DVC"
+#           dvc init --force
+#           dvc install
+#           git commit -m "Initialize DVC"
 
-          mkdir data
-          for i in {1..10}
-          do
-            echo creating file ./data/sample$i
-            echo "sample$i" >> ./data/sample$i
-          done
+#           mkdir data
+#           for i in {1..10}
+#           do
+#             echo creating file ./data/sample$i
+#             echo "sample$i" >> ./data/sample$i
+#           done
 
-          dvc add data
-          git add .gitignore data.dvc
-          git commit -m "v1"
+#           dvc add data
+#           git add .gitignore data.dvc
+#           git commit -m "v1"
 
 
-      - uses: ./.github/actions/dvc-report-action
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dvc_repro_skip: true
+#       - uses: ./.github/actions/dvc-report-action
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           dvc_repro_skip: true
 
-  case_a:
+#   case_a:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v1
+#     steps:
+#       - uses: actions/checkout@v1
 
-      - name: setup python 
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.6
+#       - name: setup python 
+#         uses: actions/setup-python@v1
+#         with:
+#           python-version: 3.6
 
-      - uses: ./.github/actions/dvc-report-action
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dvc_repro_file: train.dvc
+#       - uses: ./.github/actions/dvc-report-action
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           dvc_repro_file: train.dvc
