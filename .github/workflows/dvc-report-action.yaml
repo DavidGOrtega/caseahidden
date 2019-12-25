@@ -57,6 +57,10 @@ jobs:
         with:
           python-version: 2.7
 
+      - name: setup data
+        run: |
+          pip install dvc
+
       - uses: ./.github/actions/dvc-report-action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
