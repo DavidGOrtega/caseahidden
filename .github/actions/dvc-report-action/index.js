@@ -171,6 +171,8 @@ const run_repro = async () => {
   const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
   if (has_changes) {
     console.log('Pushing...');
+    console.log(GITHUB_ACTOR);
+    console.log(github_token);
     console.log(`https://${GITHUB_ACTOR}:${github_token}@github.com/${GITHUB_REPOSITORY}.git`);
 
     await exe(`
