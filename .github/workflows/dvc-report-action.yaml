@@ -56,11 +56,8 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.6
-          
-      - uses: ./.github/actions/dvc-report-action
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: ./.github/actions/dvc-report-action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           dvc_repro_file: train.dvc

@@ -13,9 +13,7 @@ const dvc_repro_skip = core.getInput('dvc_repro_skip') === 'true';
 const skip_ci = core.getInput('skip_ci');
 
 const GITHUB_SHA = process.env.GITHUB_SHA;
-const GITHUB_ACTOR = process.env.GITHUB_ACTOR;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
-const GITHUB_REF = process.env.GITHUB_REF;
 
 const [owner, repo] = GITHUB_REPOSITORY.split('/');
 const octokit = new github.GitHub(github_token);
@@ -169,8 +167,7 @@ const run_repro = async () => {
   try {
     await exe(`dvc repro ${dvc_repro_file}`);
   } catch (err) {
-    // TODO: dvc uses the stderr to WARNING: Dependency of changed because it is 'modified'. 
-    console.log(err.message);
+    console.log(err.message); // TODO: dvc uses the stderr to WARNING: Dependency of changed because it is 'modified'. 
   }
   
 
@@ -183,7 +180,7 @@ const run_repro = async () => {
       git config --local user.email "action@github.com"
       git config --local user.name "GitHub Action"
       git commit -a -m "dvc repro ${skip_ci}"
-      git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+      git remote add github "https://$GITHUB_ACTOR:${github_token}@github.com/$GITHUB_REPOSITORY.git"
       git push github HEAD:$GITHUB_REF
     `);
 
