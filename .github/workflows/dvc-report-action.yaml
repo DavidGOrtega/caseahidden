@@ -26,6 +26,7 @@ jobs:
 
           dvc init --force
           dvc install
+          git commit -m "Initialize DVC"
 
           mkdir data
           for i in {1..10}
@@ -43,3 +44,20 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           dvc_repro_skip: true
+
+  case_a:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: setup python 
+        uses: actions/setup-python@v1
+        with:
+          python-version: 2.7
+
+      - uses: ./.github/actions/dvc-report-action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dvc_repro_file: train.dvc
