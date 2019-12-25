@@ -50,6 +50,7 @@ const dvc_report_data_md = async () => {
 
     let dvc_out;
     try {
+      exe(`echo $(git rev-parse HEAD~1)`)
       dvc_out = await exe(`dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)`);
       // dvc_out = await exe(`dvc diff ${GITHUB_SHA} $(git rev-parse HEAD)`);
     
