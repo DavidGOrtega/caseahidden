@@ -166,7 +166,13 @@ const run_repro = async () => {
   }
 
   console.log(`echo Running dvc repro ${dvc_repro_file}`);
-  await exe(`dvc repro ${dvc_repro_file}`);
+  try {
+    await exe(`dvc repro ${dvc_repro_file}`);
+  } catch (err) {
+    // TODO: dvc uses the stderr to WARNING: Dependency of changed because it is 'modified'. 
+    console.log(err);
+  }
+  
 
   const has_changes = true; // TODO: if ! git diff-index --quiet HEAD --; then
   if (has_changes) {
