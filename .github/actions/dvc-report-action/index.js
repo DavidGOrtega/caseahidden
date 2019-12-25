@@ -23,6 +23,8 @@ const octokit = new github.GitHub(github_token);
 // console.log(github.context);
 // console.log(github.context.payload);
 
+console.log(GITHUB_SHA);
+
 const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
 
