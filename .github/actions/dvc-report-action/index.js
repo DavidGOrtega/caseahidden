@@ -5,6 +5,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 const fs = require('fs')
+const path = require('path');
 
 const github_token = core.getInput('github_token');
 const dvc_repro_file = core.getInput('dvc_repro_file');
@@ -120,6 +121,28 @@ const check_dvc_report = async () => {
   })
 }
 
+const octokit_upload_release_asset = async (url, path) => {
+  const stat = fs.statSync(path);
+
+  if (!stat.isFile()) {
+      console.log(`Skipping ${file}, since its not a file`);
+      return;
+  }
+
+  const file = fs.readFileSync(file);
+  const name = path.basename(file);
+
+  await octokit.repos.uploadReleaseAsset({
+      url,
+      name,
+      file,
+      headers: {
+          "content-type": "binary/octet-stream",
+          "content-length": stat.size
+      },
+  });
+}
+
 
 const run_repro = async () => {
   
@@ -166,6 +189,17 @@ const run_repro = async () => {
 
 
     // TODO: save artifacts as releases
+    const release = await octokit.repos.createRelease({
+        owner,
+        repo,
+        head_sha: GITHUB_SHA,
+
+        tag_name: `test_${GITHUB_SHA}`,
+    });
+
+    await exe('echo data1 > data.txt');
+    await octokit_upload_release_asset(release.data.upload_url, 'data.txt');
+    
   }
 }
 
