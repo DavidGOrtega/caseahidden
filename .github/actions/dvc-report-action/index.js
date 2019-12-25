@@ -170,7 +170,7 @@ const run_repro = async () => {
     await exe(`dvc repro ${dvc_repro_file}`);
   } catch (err) {
     // TODO: dvc uses the stderr to WARNING: Dependency of changed because it is 'modified'. 
-    console.log(err);
+    console.log(err.message);
   }
   
 
@@ -178,22 +178,17 @@ const run_repro = async () => {
   if (has_changes) {
     console.log('Pushing...');
 
-    /*
     await exe(`
-      dvc commit -f && \
-      git config --local user.email "action@github.com" && \
-      git config --local user.name "GitHub Action" && \
-      git commit -a -m "dvc repro ${skip_ci}" && \
-      git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" && \
-      git push github HEAD:$GITHUB_REF
+      dvc commit -f
+      git config --local user.email "action@github.com"
+      git config --local user.name "GitHub Action"
+      git commit -a -m "dvc repro ${skip_ci}"
     `);
 
     if (has_dvc_remote) {
       console.log('Pushing to dvc remote');
       await exe('dvc push');
     }
-    */
-
 
     // TODO: save artifacts as releases
     const release = await octokit.repos.createRelease({
