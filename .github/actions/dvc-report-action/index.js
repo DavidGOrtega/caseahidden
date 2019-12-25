@@ -34,6 +34,8 @@ const exe = async (command) => {
   return stdout ? stdout : stderr;
 }
 
+console.log(`git log -1 ${GITHUB_SHA}`);
+
 
 const uuid = () =>{
   return new Date().getUTCMilliseconds()
