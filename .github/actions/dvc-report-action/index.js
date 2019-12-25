@@ -18,10 +18,10 @@ const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const [owner, repo] = GITHUB_REPOSITORY.split('/');
 const octokit = new github.GitHub(github_token);
 
-// console.log(core);
-// console.log(process.env);
-// console.log(github.context);
-// console.log(github.context.payload);
+console.log(core);
+console.log(process.env);
+console.log(github.context);
+console.log(github.context.payload);
 
 const exe = async (command) => {
   const { stdout, stderr, error } = await exec(command);
@@ -48,8 +48,6 @@ const dvc_report_data_md = async () => {
 
     let dvc_out;
     try {
-      console.log(GITHUB_SHA);
-      exe(`echo $(git rev-parse HEAD~1)`)
       
       dvc_out = await exe(`dvc diff $(git rev-parse HEAD~1) $(git rev-parse HEAD)`);
       // dvc_out = await exe(`dvc diff ${GITHUB_SHA} $(git rev-parse HEAD)`);
